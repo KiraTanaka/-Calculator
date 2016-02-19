@@ -23,7 +23,7 @@ namespace CalculatorTests
         {
             float resultOfSubtraction = Calculator.Subtraction(firstNumber, secondNumber);
 
-            Assert.AreEqual(1, resultOfAddition);
+            Assert.AreEqual(1, resultOfSubtraction);
         }
 
     }

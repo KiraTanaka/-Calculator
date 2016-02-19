@@ -12,5 +12,9 @@ namespace ConsoleCalculator
         {
             return firstNumber + secondNumber;
         }
+        public static float Subtraction(float firstNumber, float secondNumber)
+        {
+            return secondNumber - firstNumber;
+        }
     }
 }
