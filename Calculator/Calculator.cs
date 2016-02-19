@@ -16,5 +16,9 @@ namespace ConsoleCalculator
         {
             return secondNumber - firstNumber;
         }
+        public static float Multiplication(float firstNumber, float secondNumber)
+        {
+            return firstNumber * secondNumber;
+        }
     }
 }
