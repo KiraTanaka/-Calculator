@@ -26,5 +26,13 @@ namespace CalculatorTests
             Assert.AreEqual(1, resultOfSubtraction);
         }
 
+        [Test]
+        public void Multiplication()
+        {
+            float resultOfMultiplication = Calculator.Multiplication(firstNumber, secondNumber);
+
+            Assert.AreEqual(12, resultOfMultiplication);
+        }
+
     }
 }
