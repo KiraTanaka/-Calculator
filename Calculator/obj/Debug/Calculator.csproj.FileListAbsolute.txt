@@ -1,0 +1,2 @@
+c:\users\akira\documents\visual studio 2013\Projects\Calculator\Calculator\bin\Debug\Calculator.exe.config
+C:\Users\Akira\Calculator\Calculator\bin\Debug\Calculator.exe.config
