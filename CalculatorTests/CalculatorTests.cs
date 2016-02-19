@@ -15,7 +15,7 @@ namespace CalculatorTests
         {
             float resultOfAddition = Calculator.Addition(firstNumber,secondNumber);
 
-            Assert.AreEqual(9.5f,resultOfAddition);
+            Assert.AreEqual(10.5f,resultOfAddition);
         }
 
         [Test]
@@ -33,6 +33,7 @@ namespace CalculatorTests
 
             Assert.AreEqual(24.5f, resultOfMultiplication);
         }
+
         [Test]
         public void Division()
         {

@@ -12,13 +12,20 @@ namespace ConsoleCalculator
         {
             return firstNumber + secondNumber;
         }
+
         public static float Subtraction(float firstNumber, float secondNumber)
         {
             return secondNumber - firstNumber;
         }
+
         public static float Multiplication(float firstNumber, float secondNumber)
         {
             return firstNumber * secondNumber;
+        }
+
+        public static float Division(float firstNumber, float secondNumber)
+        {
+            return secondNumber / firstNumber;
         }
     }
 }
