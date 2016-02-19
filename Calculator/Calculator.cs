@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace ConsoleCalculator
 {
-    class Program
+    public class Calculator
     {
-        static void Main(string[] args)
+        public static float Addition(float firstNumber,float secondNumber)
         {
-            
+            return firstNumber + secondNumber;
         }
     }
 }

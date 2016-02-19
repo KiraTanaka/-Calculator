@@ -54,6 +54,12 @@
     <Compile Include="CalculatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Calculator\ConsoleCalculator.csproj">
+      <Project>{bd2812c0-e91f-4a85-88d7-33043cb873f3}</Project>
+      <Name>ConsoleCalculator</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

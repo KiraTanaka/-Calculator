@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using ConsoleCalculator;
 
 namespace CalculatorTests
 {
@@ -8,16 +9,16 @@ namespace CalculatorTests
     {
 
         [Test]
-        public void AdditionTest()
+        public void Addition()
         {
-            var calculator = new Calculator();
             float firstNumber = 3;
             float secondNumber = 4;
 
-            int resultOfAddition = calculator.Addition(firstNumber,secondNumber);
+            float resultOfAddition = Calculator.Addition(firstNumber,secondNumber);
 
             Assert.AreEqual(7,resultOfAddition);
         }
+
 
     }
 }
