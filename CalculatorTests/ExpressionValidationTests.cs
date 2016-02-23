@@ -34,9 +34,9 @@ namespace ConsoleCalculatorTests
         [Test]
         public void CheckingSignsWithIncorrectExpressionTest()
         {
-            correctExpression = "+((-2)*(3+(-5)/)*9)+(7-*3)";
+            incorrectExpression = "(*(-2)*(3+(-5)/)*9)+(7-*3)";
 
-            Assert.IsFalse(ExpressionValidation.CheckingSigns(correctExpression));
+            Assert.IsFalse(ExpressionValidation.CheckingSigns(incorrectExpression));
         }
     }
 }

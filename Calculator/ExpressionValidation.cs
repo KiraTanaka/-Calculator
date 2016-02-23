@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ConsoleCalculator
@@ -37,6 +38,17 @@ namespace ConsoleCalculator
             }
 
             if (copyOfExpression.IndexOf('(') == -1 && copyOfExpression.IndexOf(')') == -1)
+                correct = true;
+
+            return correct;
+        }
+
+        public static bool CheckingSigns(string expression)
+        {
+            bool correct = false;
+            Regex regularIncorrectExpression = new Regex(@"(=)|([+,\-,*,/]{2})|([+,\-,*,/]\))|(\([+,\-,*,/]\))|(\([+,\-,*,/]\()|(\)[+,\-,*,/]\))|(^\-)");
+
+            if (!regularIncorrectExpression.IsMatch(expression))
                 correct = true;
 
             return correct;
