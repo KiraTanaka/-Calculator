@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using ConsoleCalculator;
 
-namespace CalculatorTests
+namespace ConsoleCalculatorTests
 {
     [TestFixture]
     public class CalculatorTests
@@ -11,7 +11,7 @@ namespace CalculatorTests
         private float secondNumber = 7f;
 
         [Test]
-        public void Addition()
+        public void AdditionTest()
         {
             float resultOfAddition = Calculator.Addition(firstNumber,secondNumber);
 
@@ -19,7 +19,7 @@ namespace CalculatorTests
         }
 
         [Test]
-        public void Subtraction()
+        public void SubtractionTest()
         {
             float resultOfSubtraction = Calculator.Subtraction(firstNumber, secondNumber);
 
@@ -27,7 +27,7 @@ namespace CalculatorTests
         }
 
         [Test]
-        public void Multiplication()
+        public void MultiplicationTest()
         {
             float resultOfMultiplication = Calculator.Multiplication(firstNumber, secondNumber);
 
@@ -35,7 +35,7 @@ namespace CalculatorTests
         }
 
         [Test]
-        public void Division()
+        public void DivisionTest()
         {
             float resultOfDivision = Calculator.Division(firstNumber, secondNumber);
 
