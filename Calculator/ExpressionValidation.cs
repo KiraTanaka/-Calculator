@@ -46,7 +46,7 @@ namespace ConsoleCalculator
         public static bool CheckingSigns(string expression)
         {
             bool correct = false;
-            Regex regularIncorrectExpression = new Regex(@"(=)|([+,\-,*,/]{2})|([+,\-,*,/]\))|(\([+,\-,*,/]\))|(\([+,\-,*,/]\()|(\)[+,\-,*,/]\))|(^\-)");
+            Regex regularIncorrectExpression = new Regex(@"(=)|([+,\-,*,/]{2,})|([+,\-,*,/]\))|(\([+,\-,*,/]\))|(\([+,\-,*,/]\()|(\)[+,\-,*,/]\))|(^\-)|([+,\-,*,/]$)");
 
             if (!regularIncorrectExpression.IsMatch(expression))
                 correct = true;
