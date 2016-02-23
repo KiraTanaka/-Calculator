@@ -7,12 +7,21 @@ namespace ConsoleCalculatorTests
     [TestFixture]
     public class ExpressionValidationTests
     {
+        private string correctExpression;
+        private string incorrectExpression;
         [Test]
-        public void CheckingBracketsTest()
+        public void CheckingBracketsWithCorrectExpressionTest()
         {
-            float resultOfAddition = Calculator.Addition(firstNumber, secondNumber);
+            correctExpression = "(2*(3+5))+(7-3)";
 
-            Assert.AreEqual(10.5f, resultOfAddition);
+            Assert.IsTrue(ExpressionValidation.CheckingBrackets(correctExpression));
+        }
+        [Test]
+        public void CheckingBracketsWithIncorrectExpressionTest()
+        {
+            incorrectExpression = "2*)(3+5)+(7-3))";
+
+            Assert.IsFalse(ExpressionValidation.CheckingBrackets(incorrectExpression));
         }
     }
 }

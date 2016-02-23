@@ -3,6 +3,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <StartAction>Program</StartAction>
     <StartProgram>C:\Program Files %28x86%29\NUnit 2.6.4\bin\nunit.exe</StartProgram>
-    <StartArguments>CalculatorTests.dll</StartArguments>
+    <StartArguments>ConsoleCalculatorTests.dll</StartArguments>
   </PropertyGroup>
 </Project>

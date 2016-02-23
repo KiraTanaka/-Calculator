@@ -10,7 +10,7 @@ namespace ConsoleCalculator
     {
         static void Main(string[] args)
         {
-            
+
         }
     }
 }
