@@ -15,6 +15,8 @@ namespace ConsoleCalculator
             bool correct = false;
             int indexLeftBracket, indexRightBracket, counter;
 
+            //функция удаляет парные скобки, стоящие в правильном порядке, из копии исхоодной строки
+            //если остались скобки, значит выражение в строке синтаксически неверное
             while ((copyOfExpression.IndexOf('(') < copyOfExpression.IndexOf(')')) 
                     && (copyOfExpression.IndexOf('(') >= 0) 
                     && (copyOfExpression.IndexOf(')') > 0))
@@ -46,7 +48,24 @@ namespace ConsoleCalculator
         public static bool CheckingSigns(string expression)
         {
             bool correct = false;
-            Regex regularIncorrectExpression = new Regex(@"(=)|([+,\-,*,/]{2,})|([+,\-,*,/]\))|(\([+,\-,*,/]\))|(\([+,\-,*,/]\()|(\)[+,\-,*,/]\))|(^\-)|([+,\-,*,/]$)");
+
+            //случаи описанные в регулярном выражении:
+            //  =  |  +*  |  -)  |  (*/-)  |  (*(  |  )+-)  |  *начало строки*+  |  -*конец строки*
+            Regex regularIncorrectExpression = new Regex(@"(=)|([+,\-,*,/]{2,})|([+,\-,*,/]\))|(\([+,\-,*,/]+\))|(\([+,\-,*,/]+\()|(\)[+,\-,*,/]+\))|(^[+,\-,*,/]+)|([+,\-,*,/]+$)");
+
+            if (!regularIncorrectExpression.IsMatch(expression))
+                correct = true;
+
+            return correct;
+        }
+
+        public static bool CheckingOfNumbersBetweenSigns(string expression)
+        {
+            bool correct = false;
+
+            //случаи описанные в регулярном выражении:
+            //  7.89.5  |  98.  |  )876.8  |  )5  |  876.8(  |  5(
+            Regex regularIncorrectExpression = new Regex(@"(([0-9]+\.){2,})|([0-9]+\.([+,\-,*,/]|\)|\())|(\)[0-9]+(\.[0-9]+)?)|([0-9]+(\.[0-9]+)?\()");
 
             if (!regularIncorrectExpression.IsMatch(expression))
                 correct = true;
