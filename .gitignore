@@ -1,5 +1,0 @@
-# Ignore any  build files.
-Calculator/bin/
-Calculator/obj/
-CalculatorTests/bin/
-CalculatorTests/obj/

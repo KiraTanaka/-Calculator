@@ -1,9 +1,0 @@
-C:\Users\Akira\Calculator\CalculatorTests\bin\Debug\CalculatorTests.dll
-C:\Users\Akira\Calculator\CalculatorTests\bin\Debug\CalculatorTests.pdb
-C:\Users\Akira\Calculator\CalculatorTests\bin\Debug\Calculator.exe
-C:\Users\Akira\Calculator\CalculatorTests\bin\Debug\nunit.framework.dll
-C:\Users\Akira\Calculator\CalculatorTests\bin\Debug\Calculator.pdb
-C:\Users\Akira\Calculator\CalculatorTests\bin\Debug\nunit.framework.xml
-C:\Users\Akira\Calculator\CalculatorTests\obj\Debug\CalculatorTests.csprojResolveAssemblyReference.cache
-C:\Users\Akira\Calculator\CalculatorTests\obj\Debug\CalculatorTests.dll
-C:\Users\Akira\Calculator\CalculatorTests\obj\Debug\CalculatorTests.pdb
