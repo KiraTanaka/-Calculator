@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Calculator.cs" />
     <Compile Include="ExpressionValidation.cs" />
+    <Compile Include="EvaluationOfExpression.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

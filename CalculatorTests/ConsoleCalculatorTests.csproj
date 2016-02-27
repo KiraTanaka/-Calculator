@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="CalculatorTests.cs" />
     <Compile Include="ExpressionValidationTests.cs" />
+    <Compile Include="EvaluationOfExpressionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
