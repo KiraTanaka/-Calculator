@@ -34,9 +34,7 @@ namespace ConsoleCalculatorTests
             elementsOfExpression.Push("3");
             elementsOfExpression.Push("(");
             elementsOfExpression.Push("*");
-            elementsOfExpression.Push(")");
             elementsOfExpression.Push("-2");
-            elementsOfExpression.Push("(");
            
             result = EvaluationOfExpression.SplitExpressionIntoElements(expression);
             int count = elementsOfExpression.Count;
