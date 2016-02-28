@@ -15,7 +15,7 @@ namespace ConsoleCalculator
 
         public static float Subtraction(float firstNumber, float secondNumber)
         {
-            return secondNumber - firstNumber;
+            return firstNumber - secondNumber;
         }
 
         public static float Multiplication(float firstNumber, float secondNumber)
@@ -25,7 +25,7 @@ namespace ConsoleCalculator
 
         public static float Division(float firstNumber, float secondNumber)
         {
-            return secondNumber / firstNumber;
+            return firstNumber / secondNumber;
         }
     }
 }

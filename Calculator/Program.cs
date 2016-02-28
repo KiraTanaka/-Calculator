@@ -10,7 +10,9 @@ namespace ConsoleCalculator
     {
         static void Main(string[] args)
         {
+            string expression = "((-2)*(3+5))+(7-3)";
 
+            EvaluationOfExpression.Evaluation(expression);
         }
     }
 }

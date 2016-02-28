@@ -21,7 +21,7 @@ namespace ConsoleCalculatorTests
         [Test]
         public void SubtractionTest()
         {
-            float resultOfSubtraction = Calculator.Subtraction(firstNumber, secondNumber);
+            float resultOfSubtraction = Calculator.Subtraction(secondNumber, firstNumber);
 
             Assert.AreEqual(3.5f, resultOfSubtraction);
         }
@@ -37,7 +37,7 @@ namespace ConsoleCalculatorTests
         [Test]
         public void DivisionTest()
         {
-            float resultOfDivision = Calculator.Division(firstNumber, secondNumber);
+            float resultOfDivision = Calculator.Division(secondNumber, firstNumber);
 
             Assert.AreEqual(2, resultOfDivision);
         }

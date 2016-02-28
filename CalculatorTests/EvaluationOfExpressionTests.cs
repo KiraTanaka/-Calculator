@@ -49,7 +49,6 @@ namespace ConsoleCalculatorTests
         [Test]
         public void CalculationOfSubexpressionTest()
         {
-            string expression = "-2*3+-5.8/2";
             List<string> elementsOfSubexpression = new List<string>();
 
             elementsOfSubexpression.Add("-2");

@@ -52,33 +52,72 @@ namespace ConsoleCalculator
             float result = 0;
             List<string> elementsOfExpression = SplitExpressionIntoElements(expression);
             int indexLeftBracket, indexRightBracket, counter;
+            string resultCalculaion = "";
 
             while (elementsOfExpression.Count!=1)
             {
                 indexLeftBracket = 0;
                 indexRightBracket = 0;
                 counter = 0;
-                if (elementsOfExpression.FindIndex(x=>x == "(")>=0 || elementsOfExpression.FindIndex(x=>x == ")")>0)
+                if (elementsOfExpression.FindIndex(x => x == "(") >= 0 || elementsOfExpression.FindIndex(x => x == ")") > 0)
                 {
                     foreach (var element in elementsOfExpression)
                     {
                         if (element == "(")
                             indexLeftBracket = counter;
                         else if (element == ")")
-                            {
-                                indexRightBracket = counter;
-                                CalculationOfSubexpression(elementsOfExpression.GetRange(indexLeftBracket+1,indexRightBracket-indexLeftBracket-1));
-                                break;
-                            }
+                        {
+                            indexRightBracket = counter;
+                            resultCalculaion = CalculationOfSubexpression(elementsOfExpression.GetRange(indexLeftBracket + 1, indexRightBracket - indexLeftBracket - 1));
+                            elementsOfExpression.RemoveRange(indexLeftBracket + 1, indexRightBracket - indexLeftBracket);
+                            elementsOfExpression[indexLeftBracket] = resultCalculaion;
+                            break;
+                        }
                         counter++;
                     }
                 }
                 else
-                    CalculationOfSubexpression(elementsOfExpression);
+                    resultCalculaion = CalculationOfSubexpression(elementsOfExpression);
             }
-            float.TryParse(elementsOfExpression.First(), System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.CreateSpecificCulture("en-GB"), out result);
+            float.TryParse(resultCalculaion, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out result);
 
             return result;
+        }
+
+        public static string CalculationOfSubexpression(List<string> elementsOfExpression)
+        {
+            Dictionary<string, int> priorities = new Dictionary<string, int>(){ {"*", 1},
+                                                                                {"/", 2}, 
+                                                                                {"+", 3}, 
+                                                                                {"-", 4}};
+            float leftNumber, rightNumber, resultOfOperation = 0;
+
+            for (int priorityOperation = 1; priorityOperation <= 4; priorityOperation++)
+			{	
+                for (int i = 0; i < elementsOfExpression.Count; i++)
+                {
+                    if (priorities.ContainsKey(elementsOfExpression[i]) && priorities[elementsOfExpression[i]] == priorityOperation)
+                    {
+                        float.TryParse(elementsOfExpression[i - 1], System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out leftNumber);
+                        float.TryParse(elementsOfExpression[i + 1], System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out rightNumber);
+                        switch (priorityOperation)
+                        {
+                            case 1: resultOfOperation = Calculator.Multiplication(leftNumber, rightNumber);
+                                break;
+                            case 2: resultOfOperation = Calculator.Division(leftNumber, rightNumber); 
+                                break;
+                            case 3: resultOfOperation = Calculator.Addition(leftNumber, rightNumber); 
+                                break;
+                            case 4: resultOfOperation = Calculator.Subtraction(leftNumber, rightNumber); 
+                                break;
+                        }
+                        elementsOfExpression.RemoveRange(i,2);
+                        elementsOfExpression[i - 1] = resultOfOperation.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    }
+                }
+            }
+
+            return elementsOfExpression.First();
         }
     }
 }
