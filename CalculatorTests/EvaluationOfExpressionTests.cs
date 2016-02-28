@@ -20,30 +20,30 @@ namespace ConsoleCalculatorTests
         public void SplitExpressionIntoElementsTest()
         {
             string expression = "(-2)*(3+5.8)+(7-3)";
-            Stack<string> elementsOfExpression = new Stack<string>();
-            Stack<string> result = new Stack<string>();
-            elementsOfExpression.Push(")");
-            elementsOfExpression.Push("3");
-            elementsOfExpression.Push("-");
-            elementsOfExpression.Push("7");
-            elementsOfExpression.Push("(");
-            elementsOfExpression.Push("+");
-            elementsOfExpression.Push(")");
-            elementsOfExpression.Push("5.8");
-            elementsOfExpression.Push("+");
-            elementsOfExpression.Push("3");
-            elementsOfExpression.Push("(");
-            elementsOfExpression.Push("*");
-            elementsOfExpression.Push("-2");
+            List<string> elementsOfExpression = new List<string>();
+            List<string> result = new List<string>();
+
+            elementsOfExpression.Add("-2");
+            elementsOfExpression.Add("*");
+            elementsOfExpression.Add("(");
+            elementsOfExpression.Add("3");
+            elementsOfExpression.Add("+");
+            elementsOfExpression.Add("5.8");
+            elementsOfExpression.Add(")");
+            elementsOfExpression.Add("+");
+            elementsOfExpression.Add("(");
+            elementsOfExpression.Add("7");
+            elementsOfExpression.Add("-");
+            elementsOfExpression.Add("3");
+            elementsOfExpression.Add(")");           
            
             result = EvaluationOfExpression.SplitExpressionIntoElements(expression);
-            int count = elementsOfExpression.Count;
 
             Assert.AreEqual(elementsOfExpression.Count, result.Count);
 
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < elementsOfExpression.Count; i++)
             {
-                Assert.AreEqual(elementsOfExpression.Pop(), result.Pop());
+                Assert.AreEqual(elementsOfExpression[i], result[i]);
             }
         }
     }

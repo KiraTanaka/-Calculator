@@ -8,14 +8,12 @@ namespace ConsoleCalculator
 {
     public class EvaluationOfExpression
     {
-        public static Stack<string> SplitExpressionIntoElements(string expression)
+        public static List<string> SplitExpressionIntoElements(string expression)
         {
-            Stack<string> elementsOfExpression = new Stack<string>();
-            Stack<string> invertedStackElementsOfExpression = new Stack<string>();
-            string number = "";//(-9)
-            bool flagWriteNumber=false;
+            List<string> elementsOfExpression = new List<string>();
+            string number = "";
+            bool flagWriteNumber = false;
             bool flagWriteNegativeNumber = false;
-            int countOfElementsInStack = 0;
 
             foreach (var symbol in expression)
             {
@@ -24,9 +22,9 @@ namespace ConsoleCalculator
                     number += symbol;
                     flagWriteNumber = true;
                 }
-                else if (symbol == '-' && elementsOfExpression.Peek() == "(" && number == "")
+                else if (symbol == '-' && elementsOfExpression.Last() == "(" && number == "")
                     {
-                        elementsOfExpression.Pop();
+                        elementsOfExpression.RemoveAt(elementsOfExpression.Count-1);
                         number += symbol;
                         flagWriteNegativeNumber = true;
                     }
@@ -35,29 +33,50 @@ namespace ConsoleCalculator
                         flagWriteNumber = false;
                         if (number != "")
                         {
-                            elementsOfExpression.Push(number);
+                            elementsOfExpression.Add(number);
                             number = "";
                         }
                         if (flagWriteNegativeNumber)
                             flagWriteNegativeNumber = false;
                         else
-                            elementsOfExpression.Push(symbol.ToString());
+                            elementsOfExpression.Add(symbol.ToString());
                     
                     }    
                 
             }
-            countOfElementsInStack = elementsOfExpression.Count;
-            for (int i = 0; i < countOfElementsInStack; i++)
-            {
-                invertedStackElementsOfExpression.Push(elementsOfExpression.Pop());
-            }
-            return invertedStackElementsOfExpression;
+
+            return elementsOfExpression;
         }
         public static float Evaluation (string expression)
         {
-            float result = 0;//((-2)*(3+5))+(7-3)
-            
+            float result = 0;
+            List<string> elementsOfExpression = SplitExpressionIntoElements(expression);
+            int indexLeftBracket, indexRightBracket, counter;
 
+            while (elementsOfExpression.Count!=1)
+            {
+                indexLeftBracket = 0;
+                indexRightBracket = 0;
+                counter = 0;
+                if (elementsOfExpression.FindIndex(x=>x == "(")>=0 || elementsOfExpression.FindIndex(x=>x == ")")>0)
+                {
+                    foreach (var element in elementsOfExpression)
+                    {
+                        if (element == "(")
+                            indexLeftBracket = counter;
+                        else if (element == ")")
+                            {
+                                indexRightBracket = counter;
+                                CalculationOfSubexpression(elementsOfExpression.GetRange(indexLeftBracket+1,indexRightBracket-indexLeftBracket-1));
+                                break;
+                            }
+                        counter++;
+                    }
+                }
+                else
+                    CalculationOfSubexpression(elementsOfExpression);
+            }
+            float.TryParse(elementsOfExpression.First(), System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.CreateSpecificCulture("en-GB"), out result);
 
             return result;
         }
