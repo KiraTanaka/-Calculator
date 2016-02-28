@@ -86,7 +86,16 @@ namespace ConsoleCalculator
         }
         public static bool CheckOnUnnecessarySymbols(string expression)
         {
-            
+            Regex regularUnnecessarySymbols = new Regex(@"\s|[a-z]|[A-Z]|[а-я]|[А-Я]|[\,,!,@,',`,#,№,\$,\;,%,\^,:,&,?,<,>,\[,\],\{,\},~,=,_,\|,\\]");
+            if (regularUnnecessarySymbols.IsMatch(expression))
+            {
+                expression = regularUnnecessarySymbols.Replace(expression, "");
+                Console.WriteLine("В выражении были найдены и удалены ненужные символы.");
+                Console.WriteLine("Список ненужных символов в выражениях: [a-z], space,[A-Z], [а-я], [А-Я], ,, !, @, ', `, #, №, $, ;, %, ^, :, &, ?, <, >, [, ], {, }, ~, =, _, |,\\");
+                return true;
+            }
+            else
+                return false;
         }
     }
 }
