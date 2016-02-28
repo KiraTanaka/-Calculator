@@ -39,14 +39,13 @@ namespace ConsoleCalculator
                         if (flagWriteNegativeNumber)
                             flagWriteNegativeNumber = false;
                         else
-                            elementsOfExpression.Add(symbol.ToString());
-                    
-                    }    
-                
+                            elementsOfExpression.Add(symbol.ToString());                   
+                    }                    
             }
 
             return elementsOfExpression;
         }
+
         public static float Evaluation (string expression)
         {
             float result = 0;
@@ -92,7 +91,7 @@ namespace ConsoleCalculator
                                                                                 {"-", 4}};
             float leftNumber, rightNumber, resultOfOperation = 0;
 
-            for (int priorityOperation = 1; priorityOperation <= 4; priorityOperation++)
+            for (int priorityOperation = 1; priorityOperation <= priorities.Count; priorityOperation++)
 			{	
                 for (int i = 0; i < elementsOfExpression.Count; i++)
                 {

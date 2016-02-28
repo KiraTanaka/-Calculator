@@ -10,9 +10,15 @@ namespace ConsoleCalculator
     {
         static void Main(string[] args)
         {
-            string expression = "((-2)*(3+5))+(7-3)";
-
-            EvaluationOfExpression.Evaluation(expression);
+            string expression = "";
+            float result = 0;
+            Console.WriteLine("Введите выражение:");
+            Console.WriteLine("(десятичные числа записывать через '.', например: 5.678)");
+            expression = Console.ReadLine();
+            if (ExpressionValidation.FullValidation(expression))
+                result = EvaluationOfExpression.Evaluation(expression);
+            Console.WriteLine(String.Format("Результат вычисления:\n" + result));
+            Console.ReadLine();
         }
     }
 }

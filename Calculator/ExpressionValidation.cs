@@ -9,6 +9,14 @@ namespace ConsoleCalculator
 {
     public class ExpressionValidation
     {
+        public static bool FullValidation(string expression)
+        {
+            CheckOnUnnecessarySymbols(expression);
+            if (CheckingBrackets(expression) && CheckingOfNumbersBetweenSigns(expression) && CheckingSigns(expression))
+                return true;
+            else
+                return false;
+        }
         public static bool CheckingBrackets( string expression )
         {
             string copyOfExpression = String.Copy(expression);
@@ -41,6 +49,8 @@ namespace ConsoleCalculator
 
             if (copyOfExpression.IndexOf('(') == -1 && copyOfExpression.IndexOf(')') == -1)
                 correct = true;
+            else
+                Console.WriteLine("Выражение записано неверно. Проблема со скобками. Проверьте, они стоят в правильном ли порядке и у каждой есть пара.");
 
             return correct;
         }
@@ -55,7 +65,8 @@ namespace ConsoleCalculator
 
             if (!regularIncorrectExpression.IsMatch(expression))
                 correct = true;
-
+            else
+                Console.WriteLine("Выражение записано неверно. Проблема со знаками. Возможно вы где-то забыли написать число.");
             return correct;
         }
 
@@ -69,8 +80,13 @@ namespace ConsoleCalculator
 
             if (!regularIncorrectExpression.IsMatch(expression))
                 correct = true;
-
+            else
+                Console.WriteLine("Выражение записано неверно. Проблема с числами. Также возможно вы забыли знак между числом и скобкой.");
             return correct;
+        }
+        public static bool CheckOnUnnecessarySymbols(string expression)
+        {
+            
         }
     }
 }
