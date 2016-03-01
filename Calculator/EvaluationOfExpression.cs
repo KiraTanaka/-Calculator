@@ -22,7 +22,7 @@ namespace ConsoleCalculator
                     number += symbol;
                     flagWriteNumber = true;
                 }
-                else if (symbol == '-' && elementsOfExpression.Last() == "(" && number == "")
+                else if (symbol == '-' && elementsOfExpression.Count() != 0 && elementsOfExpression.Last() == "(" && number == "")
                     {
                         elementsOfExpression.RemoveAt(elementsOfExpression.Count-1);
                         number += symbol;
@@ -42,7 +42,8 @@ namespace ConsoleCalculator
                             elementsOfExpression.Add(symbol.ToString());                   
                     }                    
             }
-
+            if (number!="")
+                elementsOfExpression.Add(number);
             return elementsOfExpression;
         }
 
@@ -58,6 +59,7 @@ namespace ConsoleCalculator
                 indexLeftBracket = 0;
                 indexRightBracket = 0;
                 counter = 0;
+                //если есть скобки в выражении, то вычисляем сначала подвыражения в них
                 if (elementsOfExpression.FindIndex(x => x == "(") >= 0 || elementsOfExpression.FindIndex(x => x == ")") > 0)
                 {
                     foreach (var element in elementsOfExpression)
@@ -99,24 +101,30 @@ namespace ConsoleCalculator
                     {
                         float.TryParse(elementsOfExpression[i - 1], System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out leftNumber);
                         float.TryParse(elementsOfExpression[i + 1], System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out rightNumber);
-                        switch (priorityOperation)
-                        {
-                            case 1: resultOfOperation = Calculator.Multiplication(leftNumber, rightNumber);
-                                break;
-                            case 2: resultOfOperation = Calculator.Division(leftNumber, rightNumber); 
-                                break;
-                            case 3: resultOfOperation = Calculator.Addition(leftNumber, rightNumber); 
-                                break;
-                            case 4: resultOfOperation = Calculator.Subtraction(leftNumber, rightNumber); 
-                                break;
-                        }
-                        elementsOfExpression.RemoveRange(i,2);
+                        CallPriorityOperation(priorityOperation, leftNumber, rightNumber);
+                        elementsOfExpression.RemoveRange(i, 2);
                         elementsOfExpression[i - 1] = resultOfOperation.ToString(System.Globalization.CultureInfo.InvariantCulture);
                     }
                 }
             }
 
             return elementsOfExpression.First();
+        }
+        public static float CallPriorityOperation(int priorityOperation, float leftNumber, float rightNumber)
+        {
+            float resultOfOperation = 0;
+            switch (priorityOperation)
+            {
+                case 1: resultOfOperation = Calculator.Multiplication(leftNumber, rightNumber);
+                    break;
+                case 2: resultOfOperation = Calculator.Division(leftNumber, rightNumber);
+                    break;
+                case 3: resultOfOperation = Calculator.Addition(leftNumber, rightNumber);
+                    break;
+                case 4: resultOfOperation = Calculator.Subtraction(leftNumber, rightNumber);
+                    break;
+            }
+            return resultOfOperation;
         }
     }
 }

@@ -9,9 +9,9 @@ namespace ConsoleCalculator
 {
     public class ExpressionValidation
     {
-        public static bool FullValidation(string expression)
+        public static bool FullValidation(ref string expression)
         {
-            CheckOnUnnecessarySymbols(expression);
+            CheckOnUnnecessarySymbols(ref expression);
             if (CheckingBrackets(expression) && CheckingOfNumbersBetweenSigns(expression) && CheckingSigns(expression))
                 return true;
             else
@@ -50,7 +50,7 @@ namespace ConsoleCalculator
             if (copyOfExpression.IndexOf('(') == -1 && copyOfExpression.IndexOf(')') == -1)
                 correct = true;
             else
-                Console.WriteLine("Выражение записано неверно. Проблема со скобками. Проверьте, они стоят в правильном ли порядке и у каждой есть пара.");
+                Console.WriteLine("Выражение записано неверно. Проблема со скобками. Проверьте, что они стоят в правильном порядке и у каждой есть пара.");
 
             return correct;
         }
@@ -75,8 +75,8 @@ namespace ConsoleCalculator
             bool correct = false;
 
             //случаи описанные в регулярном выражении:
-            //  7.89.5  |  98.  |  )876.8  |  )5  |  876.8(  |  5(
-            Regex regularIncorrectExpression = new Regex(@"(([0-9]+\.){2,})|([0-9]+\.([+,\-,*,/]|\)|\())|(\)[0-9]+(\.[0-9]+)?)|([0-9]+(\.[0-9]+)?\()");
+            //  7.89.5  |  98.+  |  )876.8  |  )5  |  876.8(  |  5(  |  )(  |  ()  |  (.)  |  ).(  |  ).8  |  98.(  |  *.8
+            Regex regularIncorrectExpression = new Regex(@"(([0-9]+\.){2,})|([0-9]+(\.[0-9]+)?\.([+,\-,*,/]|\)|\())|(\)[0-9]+(\.[0-9]+)?)|([0-9]+(\.[0-9]+)?\()|\(\)|\)\(|\([0-9]+(\.[0-9]+)?\)|\(\.\)|\)\.\(|\)\.[0-9]+(\.[0-9]+)?|[+,\-,*,/]\.[0-9]+(\.[0-9]+)?");
 
             if (!regularIncorrectExpression.IsMatch(expression))
                 correct = true;
@@ -84,7 +84,8 @@ namespace ConsoleCalculator
                 Console.WriteLine("Выражение записано неверно. Проблема с числами. Также возможно вы забыли знак между числом и скобкой.");
             return correct;
         }
-        public static bool CheckOnUnnecessarySymbols(string expression)
+
+        public static bool CheckOnUnnecessarySymbols(ref string expression)
         {
             Regex regularUnnecessarySymbols = new Regex(@"\s|[a-z]|[A-Z]|[а-я]|[А-Я]|[\,,!,@,',`,#,№,\$,\;,%,\^,:,&,?,<,>,\[,\],\{,\},~,=,_,\|,\\]");
             if (regularUnnecessarySymbols.IsMatch(expression))
@@ -92,6 +93,7 @@ namespace ConsoleCalculator
                 expression = regularUnnecessarySymbols.Replace(expression, "");
                 Console.WriteLine("В выражении были найдены и удалены ненужные символы.");
                 Console.WriteLine("Список ненужных символов в выражениях: [a-z], space,[A-Z], [а-я], [А-Я], ,, !, @, ', `, #, №, $, ;, %, ^, :, &, ?, <, >, [, ], {, }, ~, =, _, |,\\");
+                Console.WriteLine("Будет вычислено выражение:\n\n" + expression + "\n\n");
                 return true;
             }
             else
