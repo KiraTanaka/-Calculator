@@ -101,7 +101,7 @@ namespace ConsoleCalculator
                     {
                         float.TryParse(elementsOfExpression[i - 1], System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out leftNumber);
                         float.TryParse(elementsOfExpression[i + 1], System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out rightNumber);
-                        CallPriorityOperation(priorityOperation, leftNumber, rightNumber);
+                        resultOfOperation = CallPriorityOperation(priorityOperation, leftNumber, rightNumber);
                         elementsOfExpression.RemoveRange(i, 2);
                         elementsOfExpression[i - 1] = resultOfOperation.ToString(System.Globalization.CultureInfo.InvariantCulture);
                     }
@@ -110,6 +110,7 @@ namespace ConsoleCalculator
 
             return elementsOfExpression.First();
         }
+
         public static float CallPriorityOperation(int priorityOperation, float leftNumber, float rightNumber)
         {
             float resultOfOperation = 0;
