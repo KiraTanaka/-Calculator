@@ -17,6 +17,7 @@ namespace ConsoleCalculator
             else
                 return false;
         }
+
         public static bool CheckingBrackets( string expression )
         {
             string copyOfExpression = String.Copy(expression);

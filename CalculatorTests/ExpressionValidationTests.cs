@@ -55,14 +55,14 @@ namespace ConsoleCalculatorTests
         [Test]
         public void CheckOnUnnecessarySymbolsCorrectExpressionTest()
         {
-            Assert.IsFalse(ExpressionValidation.CheckOnUnnecessarySymbols(correctExpression));
+            Assert.IsFalse(ExpressionValidation.CheckOnUnnecessarySymbols(ref correctExpression));
         }
 
         [Test]
         public void CheckOnUnnecessarySymbolsIncorrectExpressionTest()
         {
             incorrectExpression = "(п(-2ae)6*(3+(кКЕ-5aer))*9)уа+9(7.89.GF5-ae3)!@#$%^&~':;<>,_=\\|№`[]{}";
-            Assert.IsTrue(ExpressionValidation.CheckOnUnnecessarySymbols(incorrectExpression));
+            Assert.IsTrue(ExpressionValidation.CheckOnUnnecessarySymbols(ref incorrectExpression));
         }
     
     }
