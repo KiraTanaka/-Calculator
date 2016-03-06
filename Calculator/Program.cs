@@ -10,23 +10,15 @@ namespace ConsoleCalculator
     {
         static void Main(string[] args)
         {
+            UserInterface userInterface = new UserInterfaceForExpression();
+            Evaluation evaluation = new EvaluationOfExpression(new GeneratorOfOperation());
             string expression = "";
-            float result = 0;
             while (true)
             {
-                Console.WriteLine("Введите выражение:");
-                Console.WriteLine("(десятичные числа записывать через '.', например: 5.678)");
-                Console.WriteLine("(отрицательные числа записывать в скобках, например: (-5.678))\n");
-                expression = Console.ReadLine();
-                Console.WriteLine("\n");
+                expression = userInterface.ReceivingData();
                 if (ExpressionValidation.FullValidation(ref expression))
-                {
-                    result = EvaluationOfExpression.Evaluation(expression);
-                    Console.WriteLine(String.Format("Результат вычисления:\n\n" + result));
-                }
-                Console.WriteLine("\n");
+                    userInterface.ResultOutput(evaluation.Evaluation(expression).ToString());                    
             }
-            Console.ReadLine();
         }
     }
 }

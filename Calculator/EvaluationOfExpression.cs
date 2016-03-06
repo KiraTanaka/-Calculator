@@ -6,9 +6,18 @@ using System.Threading.Tasks;
 
 namespace ConsoleCalculator
 {
-    public class EvaluationOfExpression
+    abstract class Evaluation
     {
-        public static List<string> SplitExpressionIntoElements(string expression)
+        public abstract float Evaluation(string expression);
+    }
+    public class EvaluationOfExpression : Evaluation
+    {
+        private Generator Component;
+        public EvaluationOfExpression(Generator component)
+        {
+            this.Component = component;
+        }
+        public List<string> SplitExpressionIntoElements(string expression)
         {
             List<string> elementsOfExpression = new List<string>();
             string number = "";
@@ -47,7 +56,7 @@ namespace ConsoleCalculator
             return elementsOfExpression;
         }
 
-        public static float Evaluation (string expression)
+        public float Evaluation (string expression)
         {
             float result = 0;
             List<string> elementsOfExpression = SplitExpressionIntoElements(expression);
@@ -85,47 +94,27 @@ namespace ConsoleCalculator
             return result;
         }
 
-        public static string CalculationOfSubexpression(List<string> elementsOfExpression)
+        public string CalculationOfSubexpression(List<string> elementsOfExpression)
         {
-            Dictionary<string, int> priorities = new Dictionary<string, int>(){ {"*", 1},
-                                                                                {"/", 2}, 
-                                                                                {"+", 3}, 
-                                                                                {"-", 4}};
+            Dictionary<string, int> priorities = Component.priorities;
             float leftNumber, rightNumber, resultOfOperation = 0;
 
-            for (int priorityOperation = 1; priorityOperation <= priorities.Count; priorityOperation++)
-			{	
-                for (int i = 0; i < elementsOfExpression.Count; i++)
+            foreach (var priority in priorities)
+            {
+                for (int index = 0; index < elementsOfExpression.Count; index++)
                 {
-                    if (priorities.ContainsKey(elementsOfExpression[i]) && priorities[elementsOfExpression[i]] == priorityOperation)
+                    if (priorities.ContainsKey(elementsOfExpression[index]) && priorities[elementsOfExpression[index]] == priority.Value)
                     {
-                        float.TryParse(elementsOfExpression[i - 1], System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out leftNumber);
-                        float.TryParse(elementsOfExpression[i + 1], System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out rightNumber);
-                        resultOfOperation = CallPriorityOperation(priorityOperation, leftNumber, rightNumber);
-                        elementsOfExpression.RemoveRange(i, 2);
-                        elementsOfExpression[i - 1] = resultOfOperation.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                        float.TryParse(elementsOfExpression[index - 1], System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out leftNumber);
+                        float.TryParse(elementsOfExpression[index + 1], System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out rightNumber);
+                        resultOfOperation = Component.ExecuteOperation(elementsOfExpression[index], leftNumber, rightNumber);
+                        elementsOfExpression.RemoveRange(index, 2);
+                        elementsOfExpression[index - 1] = resultOfOperation.ToString(System.Globalization.CultureInfo.InvariantCulture);
                     }
                 }
             }
 
             return elementsOfExpression.First();
-        }
-
-        public static float CallPriorityOperation(int priorityOperation, float leftNumber, float rightNumber)
-        {
-            float resultOfOperation = 0;
-            switch (priorityOperation)
-            {
-                case 1: resultOfOperation = Calculator.Multiplication(leftNumber, rightNumber);
-                    break;
-                case 2: resultOfOperation = Calculator.Division(leftNumber, rightNumber);
-                    break;
-                case 3: resultOfOperation = Calculator.Addition(leftNumber, rightNumber);
-                    break;
-                case 4: resultOfOperation = Calculator.Subtraction(leftNumber, rightNumber);
-                    break;
-            }
-            return resultOfOperation;
         }
     }
 }
