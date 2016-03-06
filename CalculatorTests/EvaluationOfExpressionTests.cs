@@ -12,43 +12,15 @@ namespace ConsoleCalculatorTests
         [Test]
         public void EvaluationTest()
         {
+            EvaluationOfExpression evaluation = new EvaluationOfExpression(new GeneratorOfOperation());
             string expression = "((-2)*(3+5))+(7-3)";
 
-            Assert.AreEqual(-12, EvaluationOfExpression.Evaluation(expression));
-        }
-        [Test]
-        public void SplitExpressionIntoElementsTest()
-        {
-            string expression = "(-2)*(3+5.8)+(7-3)";
-            List<string> elementsOfExpression = new List<string>();
-            List<string> result = new List<string>();
-
-            elementsOfExpression.Add("-2");
-            elementsOfExpression.Add("*");
-            elementsOfExpression.Add("(");
-            elementsOfExpression.Add("3");
-            elementsOfExpression.Add("+");
-            elementsOfExpression.Add("5.8");
-            elementsOfExpression.Add(")");
-            elementsOfExpression.Add("+");
-            elementsOfExpression.Add("(");
-            elementsOfExpression.Add("7");
-            elementsOfExpression.Add("-");
-            elementsOfExpression.Add("3");
-            elementsOfExpression.Add(")");           
-           
-            result = EvaluationOfExpression.SplitExpressionIntoElements(expression);
-
-            Assert.AreEqual(elementsOfExpression.Count, result.Count);
-
-            for (int i = 0; i < elementsOfExpression.Count; i++)
-            {
-                Assert.AreEqual(elementsOfExpression[i], result[i]);
-            }
+            Assert.AreEqual(-12, evaluation.Evaluation(expression));
         }
         [Test]
         public void CalculationOfSubexpressionTest()
         {
+            EvaluationOfExpression evaluation = new EvaluationOfExpression(new GeneratorOfOperation());
             List<string> elementsOfSubexpression = new List<string>();
 
             elementsOfSubexpression.Add("-2");
@@ -59,7 +31,7 @@ namespace ConsoleCalculatorTests
             elementsOfSubexpression.Add("/");
             elementsOfSubexpression.Add("2");
 
-            Assert.AreEqual("-8.9", EvaluationOfExpression.CalculationOfSubexpression(elementsOfSubexpression));
+            Assert.AreEqual("-8.9", evaluation.CalculationOfSubexpression(elementsOfSubexpression));
         }
     }
 }

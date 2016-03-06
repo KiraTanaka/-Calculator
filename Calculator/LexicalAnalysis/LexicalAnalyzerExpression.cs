@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleCalculator.LexicalAnalysis
 {
-    class LexicalAnalyzerExpression : LexicalAnalyzer
+    public class LexicalAnalyzerExpression : LexicalAnalyzer
     {
         public List<string> Analysis(string expression)
         {

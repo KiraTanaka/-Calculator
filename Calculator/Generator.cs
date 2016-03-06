@@ -12,8 +12,9 @@ namespace ConsoleCalculator
         float ExecuteOperation(string sign, float leftNumber, float rightNumber);
     }
 
-    class GeneratorOfOperation : Generator
+    public class GeneratorOfOperation : Generator
     {
+        Operation Operation;
         public Dictionary<string, int> priorities = new Dictionary<string, int>(){  {"*", 1},
                                                                                     {"/", 2}, 
                                                                                     {"+", 3}, 
@@ -23,32 +24,19 @@ namespace ConsoleCalculator
         {
             switch (sign)
             {
-                case "*": return Multiplication(leftNumber, rightNumber);
-                case "/": return Division(leftNumber, rightNumber);
-                case "+": return Addition(leftNumber, rightNumber);
-                case "-": return Subtraction(leftNumber, rightNumber);
+                case "*": Operation = new Multiplication();
+                    break;
+                case "/": Operation = new Division();
+                    break;
+                case "+": Operation = new Addition();
+                    break;
+                case "-": Operation = new Subtraction();
+                    break;
+                default: return 0;
             }
-            return 0;
+            return Operation.Execute(leftNumber, rightNumber);
         }
 
-        public float Addition(float firstNumber, float secondNumber)
-        {
-            return firstNumber + secondNumber;
-        }
-
-        public float Subtraction(float firstNumber, float secondNumber)
-        {
-            return firstNumber - secondNumber;
-        }
-
-        public float Multiplication(float firstNumber, float secondNumber)
-        {
-            return firstNumber * secondNumber;
-        }
-
-        public float Division(float firstNumber, float secondNumber)
-        {
-            return firstNumber / secondNumber;
-        }
+        
     }
 }
