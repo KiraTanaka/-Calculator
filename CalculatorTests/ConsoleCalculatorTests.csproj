@@ -56,6 +56,7 @@
     <Compile Include="EvaluationOfExpressionTests.cs" />
     <Compile Include="LexicalAnalyzerExpressionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SyntacticAnalyzerExpressionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Calculator\ConsoleCalculator.csproj">

@@ -21,23 +21,25 @@ namespace ConsoleCalculator.LexicalAnalysis
                 if (Char.IsNumber(symbol) || symbol == '.')
                     number += symbol;
                 else if (symbol == '-' && tokensExpression.Count() != 0 && tokensExpression.Last() == "(" && number == "")
+                {
+                    tokensExpression.RemoveAt(tokensExpression.Count - 1);
+                    number += symbol;
+                    flagNegativeNumber = true;
+                }
+                else if (limiters.Contains(symbol.ToString()))
+                {
+                    if (number != "")
                     {
-                        tokensExpression.RemoveAt(tokensExpression.Count - 1);
-                        number += symbol;
-                        flagNegativeNumber = true;
+                        tokensExpression.Add(number);
+                        number = "";
                     }
-                    else if (limiters.Contains(symbol.ToString()))
-                        {
-                            if (number != "")
-                            {
-                                tokensExpression.Add(number);
-                                number = "";
-                            }
-                            if (!flagNegativeNumber)
-                                tokensExpression.Add(symbol.ToString());
-                            else
-                                flagNegativeNumber = false;
-                        }
+                    if (!flagNegativeNumber)
+                        tokensExpression.Add(symbol.ToString());
+                    else
+                        flagNegativeNumber = false;
+                }
+                else
+                    throw new Exception("В выражении лишний символ " + symbol + ".");
             }
             if (number != "")
                 tokensExpression.Add(number);

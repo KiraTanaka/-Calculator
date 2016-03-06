@@ -56,9 +56,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Generator.cs" />
+    <Compile Include="Generator\Generator.cs" />
     <Compile Include="ExpressionValidation.cs" />
     <Compile Include="EvaluationOfExpression.cs" />
+    <Compile Include="Generator\GeneratorOfOperation.cs" />
     <Compile Include="LexicalAnalysis\LexicalAnalyzer.cs" />
     <Compile Include="LexicalAnalysis\LexicalAnalyzerExpression.cs" />
     <Compile Include="Operation.cs" />

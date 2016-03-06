@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ConsoleCalculator.Generator;
 
 namespace ConsoleCalculator
 {
@@ -12,10 +13,10 @@ namespace ConsoleCalculator
     }
     public class EvaluationOfExpression : Evaluation
     {
-        private Generator Component;
-        public EvaluationOfExpression(Generator component)
+        private GeneratorOfOperation GeneratorOfOperation;
+        public EvaluationOfExpression(GeneratorOfOperation component)
         {
-            this.Component = component;
+            this.GeneratorOfOperation = component;
         }
         public List<string> SplitExpressionIntoElements(string expression)
         {
@@ -46,7 +47,10 @@ namespace ConsoleCalculator
                         else if (element == ")")
                         {
                             indexRightBracket = counter;
-                            resultCalculaion = CalculationOfSubexpression(elementsOfExpression.GetRange(indexLeftBracket + 1, indexRightBracket - indexLeftBracket - 1));
+                            if (indexRightBracket - indexLeftBracket > 2)
+                                resultCalculaion = CalculationOfSubexpression(elementsOfExpression.GetRange(indexLeftBracket + 1, indexRightBracket - indexLeftBracket - 1));
+                            else
+                                resultCalculaion = elementsOfExpression[indexLeftBracket + 1];
                             elementsOfExpression.RemoveRange(indexLeftBracket + 1, indexRightBracket - indexLeftBracket);
                             elementsOfExpression[indexLeftBracket] = resultCalculaion;
                             break;
@@ -64,18 +68,18 @@ namespace ConsoleCalculator
 
         public string CalculationOfSubexpression(List<string> elementsOfExpression)
         {
-            Dictionary<string, int> priorities = Component.GetPriorities();
+            Dictionary<string, int> prioritiesOperation = GeneratorOfOperation.GetPriorities();
             float leftNumber, rightNumber, resultOfOperation = 0;
 
-            foreach (var priority in priorities)
+            foreach (var priority in prioritiesOperation)
             {
                 for (int index = 0; index < elementsOfExpression.Count; index++)
                 {
-                    if (priorities.ContainsKey(elementsOfExpression[index]) && priorities[elementsOfExpression[index]] == priority.Value)
+                    if (prioritiesOperation.ContainsKey(elementsOfExpression[index]) && prioritiesOperation[elementsOfExpression[index]] == priority.Value)
                     {
                         float.TryParse(elementsOfExpression[index - 1], System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out leftNumber);
                         float.TryParse(elementsOfExpression[index + 1], System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out rightNumber);
-                        resultOfOperation = Component.ExecuteOperation(elementsOfExpression[index], leftNumber, rightNumber);
+                        resultOfOperation = GeneratorOfOperation.OperationSelection(elementsOfExpression[index]).Execute(leftNumber, rightNumber);
                         elementsOfExpression.RemoveRange(index, 2);
                         elementsOfExpression[index - 1] = resultOfOperation.ToString(System.Globalization.CultureInfo.InvariantCulture);
                     }

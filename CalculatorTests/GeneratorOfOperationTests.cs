@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using ConsoleCalculator;
+using ConsoleCalculator.Generator;
 
 namespace ConsoleCalculatorTests
 {
@@ -14,7 +15,7 @@ namespace ConsoleCalculatorTests
         public void AdditionTest()
         {
             GeneratorOfOperation generator = new GeneratorOfOperation();
-            float resultOfAddition = generator.ExecuteOperation("+",firstNumber,secondNumber);
+            float resultOfAddition = generator.OperationSelection("+").Execute(firstNumber, secondNumber);
 
             Assert.AreEqual(10.5f,resultOfAddition);
         }
@@ -23,7 +24,7 @@ namespace ConsoleCalculatorTests
         public void SubtractionTest()
         {
             GeneratorOfOperation generator = new GeneratorOfOperation();
-            float resultOfSubtraction = generator.ExecuteOperation("-", firstNumber, secondNumber);
+            float resultOfSubtraction = generator.OperationSelection("-").Execute(firstNumber, secondNumber);
 
             Assert.AreEqual(3.5f, resultOfSubtraction);
         }
@@ -32,7 +33,7 @@ namespace ConsoleCalculatorTests
         public void MultiplicationTest()
         {
             GeneratorOfOperation generator = new GeneratorOfOperation();
-            float resultOfMultiplication = generator.ExecuteOperation("*", firstNumber, secondNumber);
+            float resultOfMultiplication = generator.OperationSelection("*").Execute(firstNumber, secondNumber);
 
             Assert.AreEqual(24.5f, resultOfMultiplication);
         }
@@ -41,7 +42,7 @@ namespace ConsoleCalculatorTests
         public void DivisionTest()
         {
             GeneratorOfOperation generator = new GeneratorOfOperation();
-            float resultOfDivision = generator.ExecuteOperation("/", firstNumber, secondNumber);
+            float resultOfDivision = generator.OperationSelection("/").Execute(firstNumber, secondNumber);
 
             Assert.AreEqual(2, resultOfDivision);
         }

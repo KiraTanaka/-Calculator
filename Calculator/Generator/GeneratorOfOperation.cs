@@ -4,14 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleCalculator
+namespace ConsoleCalculator.Generator
 {
-    public interface Generator
-    {
-        Dictionary<string, int> GetPriorities();
-        float ExecuteOperation(string sign, float leftNumber, float rightNumber);
-    }
-
     public class GeneratorOfOperation : Generator
     {
         Operation Operation;
@@ -23,23 +17,18 @@ namespace ConsoleCalculator
         {
             return priorities;
         }
-        public float ExecuteOperation(string sign, float leftNumber, float rightNumber)
+        public Operation OperationSelection(string sign)
         {
             switch (sign)
             {
-                case "*": Operation = new Multiplication();
-                    break;
-                case "/": Operation = new Division();
-                    break;
-                case "+": Operation = new Addition();
-                    break;
-                case "-": Operation = new Subtraction();
-                    break;
-                default: return 0;
+                case "*": return new Multiplication();
+                case "/": return new Division();
+                case "+": return new Addition();
+                case "-": return new Subtraction();
             }
-            return Operation.Execute(leftNumber, rightNumber);
+            return null;
         }
 
-        
+
     }
 }

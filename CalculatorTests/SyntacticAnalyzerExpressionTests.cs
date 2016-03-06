@@ -8,24 +8,59 @@ using System.Collections.Generic;
 namespace ConsoleCalculatorTests
 {
     [TestFixture]
-    class SyntacticAnalyzerExpressionTests
+    public class SyntacticAnalyzerExpressionTests
     {
         [Test]
         public void AnalysisWithCorrectExpressionTest()
         {
             SyntacticAnalyzerExpression analyzer = new SyntacticAnalyzerExpression();
-            string correctExpression = "((-2)*(3+5))+(7-3)";
+            List<string> tokensExpression = new List<string>();
 
-            Assert.IsTrue(analyzer.Analysis(correctExpression));
+
+            tokensExpression.Add("-2");
+            tokensExpression.Add("*");
+            tokensExpression.Add("(");
+            tokensExpression.Add("3");
+            tokensExpression.Add("+");
+            tokensExpression.Add("5.8");
+            tokensExpression.Add(")");
+            tokensExpression.Add("+");
+            tokensExpression.Add("(");
+            tokensExpression.Add("7");
+            tokensExpression.Add("-");
+            tokensExpression.Add("3");
+            tokensExpression.Add(")");
+
+            Assert.IsTrue(analyzer.Analysis(tokensExpression));
         }
 
         [Test]
         public void AnalysisWithIncorrectExpressionTest()
         {
             SyntacticAnalyzerExpression analyzer = new SyntacticAnalyzerExpression();
-            string correctExpression = "(*(-2)*(3+(-5)/)*9)+(7-*3)";
+            List<string> tokensExpression = new List<string>();
 
-            Assert.IsFalse(analyzer.Analysis(correctExpression));
+            tokensExpression.Add("*");
+            tokensExpression.Add("-2");
+            tokensExpression.Add("*");
+            tokensExpression.Add("(");
+            tokensExpression.Add("3");
+            tokensExpression.Add("+");
+            tokensExpression.Add("-5.8");
+            tokensExpression.Add("/");
+            tokensExpression.Add(")");
+            tokensExpression.Add(")");
+            tokensExpression.Add("*");
+            tokensExpression.Add("9");
+            tokensExpression.Add("+");
+            tokensExpression.Add("(");
+            tokensExpression.Add("7");
+            tokensExpression.Add("-");
+            tokensExpression.Add("*");
+            tokensExpression.Add("3");
+            tokensExpression.Add(")");
+
+            Assert.IsFalse(analyzer.Analysis(tokensExpression));
         }
     }
 }

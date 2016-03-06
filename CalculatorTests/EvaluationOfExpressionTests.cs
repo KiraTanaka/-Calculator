@@ -3,6 +3,7 @@ using NUnit.Framework;
 using ConsoleCalculator;
 using System.Collections;
 using System.Collections.Generic;
+using ConsoleCalculator.Generator;
 
 namespace ConsoleCalculatorTests
 {
