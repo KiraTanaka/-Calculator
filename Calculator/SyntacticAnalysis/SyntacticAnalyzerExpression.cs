@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace ConsoleCalculator.SyntacticAnalysis
 {
-    class SyntacticAnalyzerExpression : SyntacticAnalyzer
+    public class SyntacticAnalyzerExpression : SyntacticAnalyzer
     {
-        public List<string> Analysis(string expression)
+        public bool Analysis(string expression)
         {
             List<string> elementsOfExpression = new List<string>();
 
-            return elementsOfExpression;
+            return true;
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ConsoleCalculator.LexicalAnalysis;
 
 namespace ConsoleCalculator
 {
@@ -17,8 +18,9 @@ namespace ConsoleCalculator
             {
                 expression = userInterface.ReceivingData();
                 if (ExpressionValidation.FullValidation(ref expression))
-                    userInterface.ResultOutput(evaluation.Evaluation(expression).ToString());                    
+                    userInterface.ResultOutput(evaluation.Calculation(expression).ToString());
             }
+            
         }
     }
 }

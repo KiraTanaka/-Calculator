@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ConsoleCalculator
 {
-    abstract class Evaluation
+    public interface Evaluation
     {
-        public abstract float Evaluation(string expression);
+        float Calculation(string expression);
     }
     public class EvaluationOfExpression : Evaluation
     {
@@ -20,43 +20,11 @@ namespace ConsoleCalculator
         public List<string> SplitExpressionIntoElements(string expression)
         {
             List<string> elementsOfExpression = new List<string>();
-            string number = "";
-            bool flagWriteNumber = false;
-            bool flagWriteNegativeNumber = false;
-
-            foreach (var symbol in expression)
-            {
-                if (Char.IsNumber(symbol) || symbol == '.')
-                {
-                    number += symbol;
-                    flagWriteNumber = true;
-                }
-                else if (symbol == '-' && elementsOfExpression.Count() != 0 && elementsOfExpression.Last() == "(" && number == "")
-                    {
-                        elementsOfExpression.RemoveAt(elementsOfExpression.Count-1);
-                        number += symbol;
-                        flagWriteNegativeNumber = true;
-                    }
-                    else
-                    {
-                        flagWriteNumber = false;
-                        if (number != "")
-                        {
-                            elementsOfExpression.Add(number);
-                            number = "";
-                        }
-                        if (flagWriteNegativeNumber)
-                            flagWriteNegativeNumber = false;
-                        else
-                            elementsOfExpression.Add(symbol.ToString());                   
-                    }                    
-            }
-            if (number!="")
-                elementsOfExpression.Add(number);
+            
             return elementsOfExpression;
         }
 
-        public float Evaluation (string expression)
+        public float Calculation(string expression)
         {
             float result = 0;
             List<string> elementsOfExpression = SplitExpressionIntoElements(expression);
@@ -96,7 +64,7 @@ namespace ConsoleCalculator
 
         public string CalculationOfSubexpression(List<string> elementsOfExpression)
         {
-            Dictionary<string, int> priorities = Component.priorities;
+            Dictionary<string, int> priorities = Component.GetPriorities();
             float leftNumber, rightNumber, resultOfOperation = 0;
 
             foreach (var priority in priorities)

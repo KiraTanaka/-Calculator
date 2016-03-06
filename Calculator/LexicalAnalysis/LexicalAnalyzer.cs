@@ -8,6 +8,6 @@ namespace ConsoleCalculator.LexicalAnalysis
 {
     public interface LexicalAnalyzer
     {
-        public List<string> Analysis(string expression);
+        List<string> Analysis(string expression);
     }
 }

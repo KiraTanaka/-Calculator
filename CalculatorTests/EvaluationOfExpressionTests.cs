@@ -15,7 +15,7 @@ namespace ConsoleCalculatorTests
             EvaluationOfExpression evaluation = new EvaluationOfExpression(new GeneratorOfOperation());
             string expression = "((-2)*(3+5))+(7-3)";
 
-            Assert.AreEqual(-12, evaluation.Evaluation(expression));
+            Assert.AreEqual(-12, evaluation.Calculation(expression));
         }
         [Test]
         public void CalculationOfSubexpressionTest()

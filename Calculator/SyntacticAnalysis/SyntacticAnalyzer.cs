@@ -8,6 +8,6 @@ namespace ConsoleCalculator.SyntacticAnalysis
 {
     public interface SyntacticAnalyzer
     {
-        public List<string> Analysis(string expression);
+        List<string> Analysis(string expression);
     }
 }

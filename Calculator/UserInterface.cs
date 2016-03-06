@@ -8,8 +8,8 @@ namespace ConsoleCalculator
 {
     public interface UserInterface
     {
-        public string ReceivingData();
-        public void ResultOutput(string result);
+        string ReceivingData();
+        void ResultOutput(string result);
     }
 
     class UserInterfaceForExpression : UserInterface

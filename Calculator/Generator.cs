@@ -8,7 +8,7 @@ namespace ConsoleCalculator
 {
     public interface Generator
     {
-        public Dictionary<string, int> priorities { get; set; }
+        Dictionary<string, int> GetPriorities();
         float ExecuteOperation(string sign, float leftNumber, float rightNumber);
     }
 
@@ -19,7 +19,10 @@ namespace ConsoleCalculator
                                                                                     {"/", 2}, 
                                                                                     {"+", 3}, 
                                                                                     {"-", 4}};
-        
+        public Dictionary<string, int> GetPriorities()
+        {
+            return priorities;
+        }
         public float ExecuteOperation(string sign, float leftNumber, float rightNumber)
         {
             switch (sign)
