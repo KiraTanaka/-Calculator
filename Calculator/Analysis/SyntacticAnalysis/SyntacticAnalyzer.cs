@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleCalculator.SyntacticAnalysis
+namespace ConsoleCalculator.Analysis.SyntacticAnalysis
 {
     public interface SyntacticAnalyzer
     {

@@ -4,15 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleCalculator
+namespace ConsoleCalculator.UserInterfaces
 {
-    public interface UserInterface
-    {
-        string ReceivingData();
-        void ResultOutput(string result);
-    }
-
-    class UserInterfaceForExpression : UserInterface
+    public class UserInterfaceForExpression : UserInterface
     {
         public string ReceivingData()
         {
@@ -31,6 +25,10 @@ namespace ConsoleCalculator
             Console.WriteLine(String.Format("Результат вычисления:\n\n" + result));
             Console.WriteLine("\n");
             Console.ReadLine();
+        }
+        public void DisplaysErrorMessage(string errorMessage)
+        {
+            Console.WriteLine(errorMessage);
         }
     }
 }

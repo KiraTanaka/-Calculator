@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ConsoleCalculator.UserInterfaces;
 
-namespace ConsoleCalculator.LexicalAnalysis
+namespace ConsoleCalculator.Analysis.LexicalAnalysis
 {
     public class LexicalAnalyzerExpression : LexicalAnalyzer
     {
         private List<string> tokensExpression = new List<string>();
+        UserInterface UserInterface;
+
+        public LexicalAnalyzerExpression(UserInterface userInterface)
+        {
+            this.UserInterface = userInterface;
+        }
 
         public List<string> Analysis(string expression)
         {            
@@ -39,7 +46,7 @@ namespace ConsoleCalculator.LexicalAnalysis
                         flagNegativeNumber = false;
                 }
                 else
-                    throw new Exception("В выражении лишний символ " + symbol + ".");
+                    UserInterface.DisplaysErrorMessage("В выражении лишний символ " + symbol + ".");
             }
             if (number != "")
                 tokensExpression.Add(number);

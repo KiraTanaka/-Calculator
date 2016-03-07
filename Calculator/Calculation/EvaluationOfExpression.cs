@@ -3,44 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ConsoleCalculator.Generator;
+using ConsoleCalculator.GeneratorsOfOperations;
 
-namespace ConsoleCalculator
+namespace ConsoleCalculator.Calculation
 {
-    public interface Evaluation
-    {
-        float Calculation(string expression);
-    }
     public class EvaluationOfExpression : Evaluation
     {
-        private GeneratorOfOperation GeneratorOfOperation;
-        public EvaluationOfExpression(GeneratorOfOperation component)
+        private GeneratorOfOperations GeneratorOfOperation;
+
+        public EvaluationOfExpression(GeneratorOfOperations component)
         {
             this.GeneratorOfOperation = component;
         }
-        public List<string> SplitExpressionIntoElements(string expression)
-        {
-            List<string> elementsOfExpression = new List<string>();
-            
-            return elementsOfExpression;
-        }
 
-        public float Calculation(string expression)
+        public float Calculation(List<string> tokensExpression)
         {
             float result = 0;
-            List<string> elementsOfExpression = SplitExpressionIntoElements(expression);
             int indexLeftBracket, indexRightBracket, counter;
             string resultCalculaion = "";
 
-            while (elementsOfExpression.Count!=1)
+            while (tokensExpression.Count != 1)
             {
                 indexLeftBracket = 0;
                 indexRightBracket = 0;
                 counter = 0;
                 //если есть скобки в выражении, то вычисляем сначала подвыражения в них
-                if (elementsOfExpression.FindIndex(x => x == "(") >= 0 || elementsOfExpression.FindIndex(x => x == ")") > 0)
+                if (tokensExpression.FindIndex(x => x == "(") >= 0 || tokensExpression.FindIndex(x => x == ")") > 0)
                 {
-                    foreach (var element in elementsOfExpression)
+                    foreach (var element in tokensExpression)
                     {
                         if (element == "(")
                             indexLeftBracket = counter;
@@ -48,18 +38,18 @@ namespace ConsoleCalculator
                         {
                             indexRightBracket = counter;
                             if (indexRightBracket - indexLeftBracket > 2)
-                                resultCalculaion = CalculationOfSubexpression(elementsOfExpression.GetRange(indexLeftBracket + 1, indexRightBracket - indexLeftBracket - 1));
+                                resultCalculaion = CalculationOfSubexpression(tokensExpression.GetRange(indexLeftBracket + 1, indexRightBracket - indexLeftBracket - 1));
                             else
-                                resultCalculaion = elementsOfExpression[indexLeftBracket + 1];
-                            elementsOfExpression.RemoveRange(indexLeftBracket + 1, indexRightBracket - indexLeftBracket);
-                            elementsOfExpression[indexLeftBracket] = resultCalculaion;
+                                resultCalculaion = tokensExpression[indexLeftBracket + 1];
+                            tokensExpression.RemoveRange(indexLeftBracket + 1, indexRightBracket - indexLeftBracket);
+                            tokensExpression[indexLeftBracket] = resultCalculaion;
                             break;
                         }
                         counter++;
                     }
                 }
                 else
-                    resultCalculaion = CalculationOfSubexpression(elementsOfExpression);
+                    resultCalculaion = CalculationOfSubexpression(tokensExpression);
             }
             float.TryParse(resultCalculaion, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out result);
 

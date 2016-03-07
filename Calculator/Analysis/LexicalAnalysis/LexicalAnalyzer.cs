@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleCalculator.LexicalAnalysis
+namespace ConsoleCalculator.Analysis.LexicalAnalysis
 {
     public interface LexicalAnalyzer
     {

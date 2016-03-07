@@ -4,11 +4,19 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using ConsoleCalculator.UserInterfaces;
 
-namespace ConsoleCalculator.SyntacticAnalysis
+namespace ConsoleCalculator.Analysis.SyntacticAnalysis
 {
     public class SyntacticAnalyzerExpression : SyntacticAnalyzer
     {
+        UserInterface UserInterface;
+
+        public SyntacticAnalyzerExpression(UserInterface userInterface)
+        {
+            this.UserInterface = userInterface;
+        }
+
         public bool Analysis(List<string> tokensExpression)
         {
             string[] operation = { "-", "+", "*", "/" };
@@ -18,7 +26,7 @@ namespace ConsoleCalculator.SyntacticAnalysis
             {
                 if (nextToken != null && !nextToken.Contains(token) && nextToken.FirstOrDefault(x => token.Contains(x) && x != "-") == null)
                 {
-                    Console.WriteLine("Возможно Вы что-то пропустили перед" + token + ".");
+                    UserInterface.DisplaysErrorMessage("Возможно Вы что-то пропустили перед" + token + ".");
                     return false;
                 }
 
@@ -64,8 +72,8 @@ namespace ConsoleCalculator.SyntacticAnalysis
             if (tokensExpression.IndexOf("(") == -1 && tokensExpression.IndexOf(")") == -1)
                 return true;
             else
-                Console.WriteLine("Выражение записано неверно. Проблема со скобками. Проверьте, что они стоят в правильном порядке и у каждой есть пара.");
-
+                UserInterface.DisplaysErrorMessage("Выражение записано неверно. Проблема со скобками.");
+            
             return false;
         }
         private string[] GetNextTokensAfterNumber()
