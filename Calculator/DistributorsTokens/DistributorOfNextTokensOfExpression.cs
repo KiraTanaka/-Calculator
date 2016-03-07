@@ -60,6 +60,7 @@ namespace ConsoleCalculator.DistributorsTokens
 
         private void GetNextTokensAfterRightBrackets(ref Tokens nextTokens)
         {
+            nextTokens.TokenNumber = false;
             nextTokens.ListTokens = new List<string>();
             for (int index = 0; index < Tokens.ListTokens.Count - 2; index++) // "*", "/", "+", "-"
             {
