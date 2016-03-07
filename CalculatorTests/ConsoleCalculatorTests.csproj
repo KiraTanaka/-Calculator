@@ -51,7 +51,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="DistributorOfNextTokensOfExpressionTests.cs" />
+    <Compile Include="DistributorOfNextTokensTests.cs" />
     <Compile Include="DistributorOfOperationsOfExpressionTests.cs" />
     <Compile Include="EvaluationOfExpressionTests.cs" />
     <Compile Include="LexicalAnalyzerExpressionTests.cs" />

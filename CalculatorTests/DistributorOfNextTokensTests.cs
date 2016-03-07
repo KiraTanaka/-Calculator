@@ -6,12 +6,13 @@ using System.Collections.Generic;
 
 namespace ConsoleCalculatorTests
 {
-    public class DistributorOfNextTokensOfExpressionTests
+    public class DistributorOfNextTokensTests
     {
+        Tokens Tokens = new Tokens() { TokenNumber = true, ListTokens = new List<string>() { "*", "/", "+", "-", "(", ")" } };
         [Test]
         public void GetNextTokenWithOperationTest()
         {
-            DistributorOfNextTokensOfExpression distributor = new DistributorOfNextTokensOfExpression(new TokensExpression());
+            DistributorOfNextTokens distributor = new DistributorOfNextTokens(Tokens);
             Tokens tokens = new Tokens() { TokenNumber = true };
             tokens.ListTokens = new List<string>() { "(" };
             Tokens result = distributor.GetNextToken("+");
@@ -24,7 +25,7 @@ namespace ConsoleCalculatorTests
         [Test]
         public void GetNextTokenWithNumberTest()
         {
-            DistributorOfNextTokensOfExpression distributor = new DistributorOfNextTokensOfExpression(new TokensExpression());
+            DistributorOfNextTokens distributor = new DistributorOfNextTokens(Tokens);
             Tokens tokens = new Tokens() { TokenNumber = false };
             tokens.ListTokens = new List<string>() { "*", "/", "+", "-", ")", "$" };
             Tokens result = distributor.GetNextToken("8990.756");
@@ -40,7 +41,7 @@ namespace ConsoleCalculatorTests
         [Test]
         public void GetNextTokenWithLeftBracketsTest()
         {
-            DistributorOfNextTokensOfExpression distributor = new DistributorOfNextTokensOfExpression(new TokensExpression());
+            DistributorOfNextTokens distributor = new DistributorOfNextTokens(Tokens);
             Tokens tokens = new Tokens() { TokenNumber = true };
             tokens.ListTokens = new List<string>() { "-", "(" };
             Tokens result = distributor.GetNextToken("(");
@@ -56,7 +57,7 @@ namespace ConsoleCalculatorTests
         [Test]
         public void GetNextTokenWithRightBracketsTest()
         {
-            DistributorOfNextTokensOfExpression distributor = new DistributorOfNextTokensOfExpression(new TokensExpression());
+            DistributorOfNextTokens distributor = new DistributorOfNextTokens(Tokens);
             Tokens tokens = new Tokens() { TokenNumber = false };
             tokens.ListTokens = new List<string>() { "*", "/", "+", "-", ")", "$" };
             Tokens result = distributor.GetNextToken(")");
@@ -72,7 +73,7 @@ namespace ConsoleCalculatorTests
         [Test]
         public void GetNextTokenWithBeginningOfLineTest()
         {
-            DistributorOfNextTokensOfExpression distributor = new DistributorOfNextTokensOfExpression(new TokensExpression());
+            DistributorOfNextTokens distributor = new DistributorOfNextTokens(Tokens);
             Tokens tokens = new Tokens() { TokenNumber = true };
             tokens.ListTokens = new List<string>() { "(" };
             Tokens result = distributor.GetNextToken("^");

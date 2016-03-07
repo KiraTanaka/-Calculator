@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace ConsoleCalculator.DistributorsTokens
 {
-    public class DistributorOfNextTokensOfExpression : DistributorOfNextTokens
+    public class DistributorOfNextTokens
     {
         Tokens Tokens;
 
-        public DistributorOfNextTokensOfExpression(Tokens tokens)
+        public DistributorOfNextTokens(Tokens tokens)
         {
             this.Tokens = tokens;
         }

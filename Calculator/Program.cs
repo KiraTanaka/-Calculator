@@ -16,11 +16,13 @@ namespace ConsoleCalculator
     {
         static void Main(string[] args)
         {
+            Tokens tokens = new Tokens() { TokenNumber = true, ListTokens = new List<string>() { "*", "/", "+", "-", "(", ")" } };
+
             UserInterface userInterface = new UserInterfaceForExpression();
             Evaluation evaluation = new EvaluationOfExpression(new DistributorOfOperationsOfExpression());
             LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzerExpression(userInterface);
             SyntacticAnalyzer syntacticAnalyzer = new SyntacticAnalyzerExpression(userInterface,
-                                                        new DistributorOfNextTokensOfExpression(new TokensExpression()));
+                                                        new DistributorOfNextTokens(tokens));
             List<string> tokensExpression = new List<string>(); 
             string expression = "";
             while (true)

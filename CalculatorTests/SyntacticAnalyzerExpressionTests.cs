@@ -20,7 +20,7 @@ namespace ConsoleCalculatorTests
         {
             SyntacticAnalyzerExpression analyzer = new SyntacticAnalyzerExpression(
                                                         new UserInterfaceForExpression(),
-                                                        new DistributorOfNextTokensOfExpression(new TokensExpression()));
+                                                        new DistributorOfNextTokens(new TokensExpression()));
 
             Assert.IsTrue(analyzer.Analysis(CorrectTokensExpression));
         }
@@ -30,7 +30,7 @@ namespace ConsoleCalculatorTests
         {
             SyntacticAnalyzerExpression analyzer = new SyntacticAnalyzerExpression(
                                                         new UserInterfaceForExpression(),
-                                                        new DistributorOfNextTokensOfExpression(new TokensExpression()));
+                                                        new DistributorOfNextTokens(new TokensExpression()));
 
 
             Assert.IsFalse(analyzer.Analysis(IncorrectTokensExpression));
@@ -41,7 +41,7 @@ namespace ConsoleCalculatorTests
         {
             SyntacticAnalyzerExpression analyzer = new SyntacticAnalyzerExpression(
                                                         new UserInterfaceForExpression(),
-                                                        new DistributorOfNextTokensOfExpression(new TokensExpression()));
+                                                        new DistributorOfNextTokens(new TokensExpression()));
             Assert.IsTrue(analyzer.CheckingBrackets(CorrectTokensExpression));
         }
 
@@ -50,7 +50,7 @@ namespace ConsoleCalculatorTests
         {
             SyntacticAnalyzerExpression analyzer = new SyntacticAnalyzerExpression(
                                                         new UserInterfaceForExpression(),
-                                                        new DistributorOfNextTokensOfExpression(new TokensExpression()));
+                                                        new DistributorOfNextTokens(new TokensExpression()));
 
             Assert.IsFalse(analyzer.CheckingBrackets(IncorrectTokensExpression));
         }
