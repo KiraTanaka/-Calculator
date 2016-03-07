@@ -34,6 +34,7 @@ namespace ConsoleCalculatorTests
 
             Assert.AreEqual(-13.6, evaluation.Calculation(tokensExpression).Number);
         }
+
         [Test]
         public void CalculationOfSubexpressionTest()
         {
