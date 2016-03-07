@@ -8,34 +8,42 @@ namespace ConsoleCalculator
 {
     public interface Operation
     {
-        float Execute(float firstNumber, float secondNumber);
+        TypeNumber Execute(TypeNumber firstNumber, TypeNumber secondNumber);
     }
     class Addition : Operation
     {
-        public float Execute(float firstNumber, float secondNumber)
+        public TypeNumber Execute(TypeNumber firstNumber, TypeNumber secondNumber)
         {
-            return firstNumber + secondNumber;
+            TypeNumber result = new TypeNumber();
+            result.Number = firstNumber.Number + secondNumber.Number;
+            return result;
         }
     }
     class Subtraction : Operation
     {
-        public float Execute(float firstNumber, float secondNumber)
+        public TypeNumber Execute(TypeNumber firstNumber, TypeNumber secondNumber)
         {
-            return firstNumber - secondNumber;
+            TypeNumber result = new TypeNumber();
+            result.Number = firstNumber.Number - secondNumber.Number;
+            return result;
         }
     }
     class Multiplication : Operation
     {
-        public float Execute(float firstNumber, float secondNumber)
+        public TypeNumber Execute(TypeNumber firstNumber, TypeNumber secondNumber)
         {
-            return firstNumber * secondNumber;
+            TypeNumber result = new TypeNumber();
+            result.Number = firstNumber.Number * secondNumber.Number;
+            return result;
         }
     }
     class Division : Operation
     {
-        public float Execute(float firstNumber, float secondNumber)
+        public TypeNumber Execute(TypeNumber firstNumber, TypeNumber secondNumber)
         {
-            return firstNumber / secondNumber;
+            TypeNumber result = new TypeNumber();
+            result.Number = firstNumber.Number / secondNumber.Number;
+            return result;
         }
     }
 }

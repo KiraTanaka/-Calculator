@@ -51,8 +51,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="GeneratorOfOperationTests.cs" />
-    <Compile Include="ExpressionValidationTests.cs" />
+    <Compile Include="DistributorOfOperationsOfExpressionTests.cs" />
     <Compile Include="EvaluationOfExpressionTests.cs" />
     <Compile Include="LexicalAnalyzerExpressionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleCalculator.GeneratorsOfOperations
+namespace ConsoleCalculator.DistributorsOperations
 {
-    public interface GeneratorOfOperations
+    public interface DistributorOperations
     {
         Dictionary<string, int> GetPriorities();
         Operation OperationSelection(string sign);

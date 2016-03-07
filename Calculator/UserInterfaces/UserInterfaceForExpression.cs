@@ -17,7 +17,7 @@ namespace ConsoleCalculator.UserInterfaces
             expression = Console.ReadLine();
             Console.WriteLine("\n");
 
-            return expression;
+            return expression.Trim();
         }
 
         public void ResultOutput(string result)

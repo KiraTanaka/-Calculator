@@ -1,7 +1,8 @@
 ﻿using System;
 using NUnit.Framework;
 using ConsoleCalculator;
-using ConsoleCalculator.LexicalAnalysis;
+using ConsoleCalculator.Analysis.LexicalAnalysis;
+using ConsoleCalculator.UserInterfaces;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -13,7 +14,7 @@ namespace ConsoleCalculatorTests
         [Test]
         public void AnalysisTest()
         {
-            LexicalAnalyzerExpression analyzer = new LexicalAnalyzerExpression();
+            LexicalAnalyzerExpression analyzer = new LexicalAnalyzerExpression(new UserInterfaceForExpression());
             string expression = "(-2)*(3+5.8)+(7-3)";
             List<string> tokensExpression = new List<string>();
             List<string> result = new List<string>();

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleCalculator.GeneratorsOfOperations
+namespace ConsoleCalculator.DistributorsOperations
 {
-    public class GeneratorOfOperationsOfExpression : GeneratorOfOperations
+    public class DistributorOfOperationsOfExpression : DistributorOperations
     {       
         Dictionary<string, int> Priorities = new Dictionary<string, int>(){ {"*", 1},
                                                                             {"/", 2}, 

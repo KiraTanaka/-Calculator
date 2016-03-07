@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ConsoleCalculator.GeneratorsOfOperations;
+using ConsoleCalculator.DistributorsOperations;
 
-namespace ConsoleCalculator.Calculation
+namespace ConsoleCalculator.Evaluations
 {
     public class EvaluationOfExpression : Evaluation
     {
-        private GeneratorOfOperations GeneratorOfOperation;
+        private DistributorOperations GeneratorOfOperations;
 
-        public EvaluationOfExpression(GeneratorOfOperations component)
+        public EvaluationOfExpression(DistributorOperations component)
         {
-            this.GeneratorOfOperation = component;
+            this.GeneratorOfOperations = component;
         }
 
-        public float Calculation(List<string> tokensExpression)
+        public TypeNumber Calculation(List<string> tokensExpression)
         {
-            float result = 0;
+            TypeNumber result = new TypeNumber();
             int indexLeftBracket, indexRightBracket, counter;
             string resultCalculaion = "";
 
@@ -27,8 +27,9 @@ namespace ConsoleCalculator.Calculation
                 indexLeftBracket = 0;
                 indexRightBracket = 0;
                 counter = 0;
+
                 //если есть скобки в выражении, то вычисляем сначала подвыражения в них
-                if (tokensExpression.FindIndex(x => x == "(") >= 0 || tokensExpression.FindIndex(x => x == ")") > 0)
+                if (tokensExpression.FindIndex(x => x == "(" || x == ")") >= 0 )
                 {
                     foreach (var element in tokensExpression)
                     {
@@ -51,32 +52,35 @@ namespace ConsoleCalculator.Calculation
                 else
                     resultCalculaion = CalculationOfSubexpression(tokensExpression);
             }
-            float.TryParse(resultCalculaion, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out result);
+            
+            result.Number = TypeNumber.TryParse(resultCalculaion);
 
             return result;
         }
 
-        public string CalculationOfSubexpression(List<string> elementsOfExpression)
+        public string CalculationOfSubexpression(List<string> tokensSubexpression)
         {
-            Dictionary<string, int> prioritiesOperation = GeneratorOfOperation.GetPriorities();
-            float leftNumber, rightNumber, resultOfOperation = 0;
+            Dictionary<string, int> prioritiesOperation = GeneratorOfOperations.GetPriorities();
+            TypeNumber leftNumber = new TypeNumber(), rightNumber = new TypeNumber(), resultOfOperation = new TypeNumber();
+            Operation operation = null;
 
-            foreach (var priority in prioritiesOperation)
+            foreach (var priority in prioritiesOperation.Values)
             {
-                for (int index = 0; index < elementsOfExpression.Count; index++)
+                for (int index = 0; index < tokensSubexpression.Count; index++)
                 {
-                    if (prioritiesOperation.ContainsKey(elementsOfExpression[index]) && prioritiesOperation[elementsOfExpression[index]] == priority.Value)
+                    if (prioritiesOperation.FirstOrDefault(x => x.Key == tokensSubexpression[index]).Value == priority)
                     {
-                        float.TryParse(elementsOfExpression[index - 1], System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out leftNumber);
-                        float.TryParse(elementsOfExpression[index + 1], System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out rightNumber);
-                        resultOfOperation = GeneratorOfOperation.OperationSelection(elementsOfExpression[index]).Execute(leftNumber, rightNumber);
-                        elementsOfExpression.RemoveRange(index, 2);
-                        elementsOfExpression[index - 1] = resultOfOperation.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                        leftNumber.Number = TypeNumber.TryParse(tokensSubexpression[index - 1]);
+                        rightNumber.Number = TypeNumber.TryParse(tokensSubexpression[index + 1]);
+                        operation = GeneratorOfOperations.OperationSelection(tokensSubexpression[index]);
+                        resultOfOperation = operation.Execute(leftNumber, rightNumber);
+                        tokensSubexpression.RemoveRange(index, 2);
+                        tokensSubexpression[index - 1] = resultOfOperation.NumberToString();
                     }
                 }
             }
 
-            return elementsOfExpression.First();
+            return tokensSubexpression.First();
         }
     }
 }

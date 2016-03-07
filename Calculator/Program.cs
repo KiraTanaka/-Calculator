@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ConsoleCalculator.Analysis.LexicalAnalysis;
-using ConsoleCalculator.GeneratorsOfOperations;
+using ConsoleCalculator.DistributorsOperations;
 using ConsoleCalculator.Analysis.SyntacticAnalysis;
 using ConsoleCalculator.UserInterfaces;
-using ConsoleCalculator.Calculation;
+using ConsoleCalculator.Evaluations;
+using ConsoleCalculator.DistributorsTokens;
 
 namespace ConsoleCalculator
 {
@@ -16,9 +17,10 @@ namespace ConsoleCalculator
         static void Main(string[] args)
         {
             UserInterface userInterface = new UserInterfaceForExpression();
-            Evaluation evaluation = new EvaluationOfExpression(new GeneratorOfOperationsOfExpression());
+            Evaluation evaluation = new EvaluationOfExpression(new DistributorOfOperationsOfExpression());
             LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzerExpression(userInterface);
-            SyntacticAnalyzer syntacticAnalyzer = new SyntacticAnalyzerExpression(userInterface);
+            SyntacticAnalyzer syntacticAnalyzer = new SyntacticAnalyzerExpression(userInterface,
+                                                        new DistributorOfNextTokensOfExpression(new TokensExpression()));
             List<string> tokensExpression = new List<string>(); 
             string expression = "";
             while (true)
@@ -26,7 +28,7 @@ namespace ConsoleCalculator
                 expression = userInterface.ReceivingData();
                 tokensExpression = lexicalAnalyzer.Analysis(expression);
                 if (syntacticAnalyzer.Analysis(tokensExpression))
-                    userInterface.ResultOutput(evaluation.Calculation(tokensExpression).ToString());
+                    userInterface.ResultOutput(evaluation.Calculation(tokensExpression).NumberToString());
             }
             
         }

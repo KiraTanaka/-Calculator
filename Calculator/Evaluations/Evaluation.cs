@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleCalculator.Calculation
+namespace ConsoleCalculator.Evaluations
 {
     public interface Evaluation
     {
-        float Calculation(List<string> tokensExpression);
+        TypeNumber Calculation(List<string> tokensExpression);
     }
 }
