@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleCalculator.DistributorsTokens
+namespace ConsoleCalculator
 {
     public class Tokens
     {

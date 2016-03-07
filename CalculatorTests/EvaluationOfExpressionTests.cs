@@ -32,7 +32,7 @@ namespace ConsoleCalculatorTests
             tokensExpression.Add("3");
             tokensExpression.Add(")");
 
-            Assert.AreEqual(-13.6, evaluation.Calculation(tokensExpression).Number);
+            Assert.AreEqual(-13.6f, evaluation.Calculation(tokensExpression).Number);
         }
 
         [Test]

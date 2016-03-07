@@ -12,6 +12,8 @@ namespace ConsoleCalculatorTests
     [TestFixture]
     public class SyntacticAnalyzerExpressionTests
     {
+        Tokens Tokens = new Tokens() { TokenNumber = true, ListTokens = new List<string>() { "*", "/", "+", "-", "(", ")" } };
+
         List<string> CorrectTokensExpression = new List<string>() { "-2", "*", "(", "3", "+", "5.8", ")", "+", "(", "7", "-", "3", ")" };
         List<string> IncorrectTokensExpression = new List<string>() { "*", "-2", "*", "(", "3", "+", "-5.8", "/", ")", ")", "+", "(", "7", "-", "*", "3", ")" ,"+" };
 
@@ -20,7 +22,7 @@ namespace ConsoleCalculatorTests
         {
             SyntacticAnalyzerExpression analyzer = new SyntacticAnalyzerExpression(
                                                         new UserInterfaceForExpression(),
-                                                        new DistributorOfNextTokens(new TokensExpression()));
+                                                        new DistributorOfNextTokens(Tokens));
 
             Assert.IsTrue(analyzer.Analysis(CorrectTokensExpression));
         }
@@ -30,7 +32,7 @@ namespace ConsoleCalculatorTests
         {
             SyntacticAnalyzerExpression analyzer = new SyntacticAnalyzerExpression(
                                                         new UserInterfaceForExpression(),
-                                                        new DistributorOfNextTokens(new TokensExpression()));
+                                                        new DistributorOfNextTokens(Tokens));
 
 
             Assert.IsFalse(analyzer.Analysis(IncorrectTokensExpression));
@@ -41,7 +43,7 @@ namespace ConsoleCalculatorTests
         {
             SyntacticAnalyzerExpression analyzer = new SyntacticAnalyzerExpression(
                                                         new UserInterfaceForExpression(),
-                                                        new DistributorOfNextTokens(new TokensExpression()));
+                                                        new DistributorOfNextTokens(Tokens));
             Assert.IsTrue(analyzer.CheckingBrackets(CorrectTokensExpression));
         }
 
@@ -50,7 +52,7 @@ namespace ConsoleCalculatorTests
         {
             SyntacticAnalyzerExpression analyzer = new SyntacticAnalyzerExpression(
                                                         new UserInterfaceForExpression(),
-                                                        new DistributorOfNextTokens(new TokensExpression()));
+                                                        new DistributorOfNextTokens(Tokens));
 
             Assert.IsFalse(analyzer.CheckingBrackets(IncorrectTokensExpression));
         }

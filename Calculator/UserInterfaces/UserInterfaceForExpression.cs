@@ -29,6 +29,7 @@ namespace ConsoleCalculator.UserInterfaces
         public void DisplaysErrorMessage(string errorMessage)
         {
             Console.WriteLine(errorMessage);
+            Console.WriteLine("\n");
         }
     }
 }

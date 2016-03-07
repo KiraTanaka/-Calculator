@@ -9,17 +9,18 @@ namespace ConsoleCalculator.Analysis.LexicalAnalysis
 {
     public class LexicalAnalyzerExpression : LexicalAnalyzer
     {
-        private List<string> tokensExpression = new List<string>();
+        private List<string> TokensExpression = new List<string>();
         UserInterface UserInterface;
+        Tokens Tokens;
 
-        public LexicalAnalyzerExpression(UserInterface userInterface)
+        public LexicalAnalyzerExpression(UserInterface userInterface, Tokens tokens)
         {
             this.UserInterface = userInterface;
+            this.Tokens = tokens;
         }
 
         public List<string> Analysis(string expression)
         {            
-            string[] limiters = {"-","+","*","/","(",")"};
             string number = "";
             bool flagNegativeNumber = false;
 
@@ -27,31 +28,34 @@ namespace ConsoleCalculator.Analysis.LexicalAnalysis
             {
                 if (Char.IsNumber(symbol) || symbol == '.')
                     number += symbol;
-                else if (symbol == '-' && tokensExpression.Count() != 0 && tokensExpression.Last() == "(" && number == "")
+                else if (symbol == '-' && TokensExpression.Count() != 0 && TokensExpression.Last() == "(" && number == "")
                 {
-                    tokensExpression.RemoveAt(tokensExpression.Count - 1);
+                    TokensExpression.RemoveAt(TokensExpression.Count - 1);
                     number += symbol;
                     flagNegativeNumber = true;
                 }
-                else if (limiters.Contains(symbol.ToString()))
+                else if (Tokens.ListTokens.Contains(symbol.ToString()))
                 {
                     if (number != "")
                     {
-                        tokensExpression.Add(number);
+                        TokensExpression.Add(number);
                         number = "";
                     }
                     if (!flagNegativeNumber)
-                        tokensExpression.Add(symbol.ToString());
+                        TokensExpression.Add(symbol.ToString());
                     else
                         flagNegativeNumber = false;
                 }
                 else
+                {
                     UserInterface.DisplaysErrorMessage("В выражении лишний символ " + symbol + ".");
+                    return null;
+                }
             }
             if (number != "")
-                tokensExpression.Add(number);
+                TokensExpression.Add(number);
 
-            return tokensExpression;
+            return TokensExpression;
         }
     }
 }

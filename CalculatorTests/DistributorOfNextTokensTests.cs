@@ -9,6 +9,7 @@ namespace ConsoleCalculatorTests
     public class DistributorOfNextTokensTests
     {
         Tokens Tokens = new Tokens() { TokenNumber = true, ListTokens = new List<string>() { "*", "/", "+", "-", "(", ")" } };
+
         [Test]
         public void GetNextTokenWithOperationTest()
         {

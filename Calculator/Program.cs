@@ -20,7 +20,7 @@ namespace ConsoleCalculator
 
             UserInterface userInterface = new UserInterfaceForExpression();
             Evaluation evaluation = new EvaluationOfExpression(new DistributorOfOperationsOfExpression());
-            LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzerExpression(userInterface);
+            LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzerExpression(userInterface, tokens);
             SyntacticAnalyzer syntacticAnalyzer = new SyntacticAnalyzerExpression(userInterface,
                                                         new DistributorOfNextTokens(tokens));
             List<string> tokensExpression = new List<string>(); 
@@ -29,7 +29,7 @@ namespace ConsoleCalculator
             {
                 expression = userInterface.ReceivingData();
                 tokensExpression = lexicalAnalyzer.Analysis(expression);
-                if (syntacticAnalyzer.Analysis(tokensExpression))
+                if (tokensExpression != null && syntacticAnalyzer.Analysis(tokensExpression))
                     userInterface.ResultOutput(evaluation.Calculation(tokensExpression).NumberToString());
             }
             
