@@ -7,7 +7,7 @@ using ConsoleCalculator.Tokens;
 
 namespace ConsoleCalculator.Analysis.LexicalAnalysis
 {
-    public interface LexicalAnalyzer
+    public interface ILexicalAnalyzer
     {
         List<Token> Analysis(string expression);
     }

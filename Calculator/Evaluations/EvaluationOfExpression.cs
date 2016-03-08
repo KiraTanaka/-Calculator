@@ -3,20 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ConsoleCalculator.DistributorsOperations;
+using ConsoleCalculator.Factories;
 using ConsoleCalculator.Tokens;
 
 namespace ConsoleCalculator.Evaluations
 {
     public class EvaluationOfExpression : Evaluation
     {
-        private DistributorOperations GeneratorOfOperations;
-
-        public EvaluationOfExpression(DistributorOperations component)
-        {
-            this.GeneratorOfOperations = component;
-        }
-
         public TypeNumber Calculation(List<Token> tokensExpression)
         {
             TypeNumber result = new TypeNumber();
@@ -61,7 +54,7 @@ namespace ConsoleCalculator.Evaluations
 
         public Token CalculationOfSubexpression(List<Token> tokensSubexpression)
         {
-            Dictionary<string, int> prioritiesOperation = GeneratorOfOperations.GetPriorities();
+            Dictionary<string, int> prioritiesOperation = FactoryOperations.GetPriorities();
             TypeNumber leftNumber = new TypeNumber(), rightNumber = new TypeNumber(), resultOfOperation = new TypeNumber();
             Operation operation = null;
 
@@ -73,7 +66,7 @@ namespace ConsoleCalculator.Evaluations
                     {
                         leftNumber.Number = TypeNumber.TryParse(tokensSubexpression[index - 1].Value);
                         rightNumber.Number = TypeNumber.TryParse(tokensSubexpression[index + 1].Value);
-                        operation = GeneratorOfOperations.OperationSelection(tokensSubexpression[index].Value);
+                        operation = FactoryOperations.OperationSelection(tokensSubexpression[index].Value);
                         resultOfOperation = operation.Execute(leftNumber, rightNumber);
                         tokensSubexpression.RemoveRange(index, 2);
                         tokensSubexpression[index - 1].Value = resultOfOperation.NumberToString();

@@ -57,16 +57,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Evaluations\Evaluation.cs" />
-    <Compile Include="DistributorsTokens\DistributorOfNextTokens.cs" />
-    <Compile Include="DistributorsOperations\DistributorOperations.cs" />
+    <Compile Include="Factories\FactoryTokens.cs" />
     <Compile Include="Evaluations\EvaluationOfExpression.cs" />
-    <Compile Include="DistributorsOperations\DistributorOfOperationsOfExpression.cs" />
-    <Compile Include="Analysis\LexicalAnalysis\LexicalAnalyzer.cs" />
+    <Compile Include="Factories\FactoryOperations.cs" />
+    <Compile Include="Analysis\LexicalAnalysis\ILexicalAnalyzer.cs" />
     <Compile Include="Analysis\LexicalAnalysis\LexicalAnalyzerExpression.cs" />
     <Compile Include="Operations\Operation.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Analysis\SyntacticAnalysis\SyntacticAnalyzer.cs" />
+    <Compile Include="Analysis\SyntacticAnalysis\ISyntacticAnalyzer.cs" />
     <Compile Include="Analysis\SyntacticAnalysis\SyntacticAnalyzerExpression.cs" />
     <Compile Include="Tokens\Token.cs" />
     <Compile Include="Tokens\TokenBeginningOfLine.cs" />
@@ -76,7 +75,7 @@
     <Compile Include="Tokens\TokenOperations.cs" />
     <Compile Include="Tokens\TokenRightBracket.cs" />
     <Compile Include="TypeNumber.cs" />
-    <Compile Include="UserInterfaces\UserInterface.cs" />
+    <Compile Include="UserInterfaces\IUserInterface.cs" />
     <Compile Include="UserInterfaces\UserInterfaceForExpression.cs" />
   </ItemGroup>
   <ItemGroup>

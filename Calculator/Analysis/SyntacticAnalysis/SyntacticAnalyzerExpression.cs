@@ -10,18 +10,18 @@ using ConsoleCalculator.Tokens;
 
 namespace ConsoleCalculator.Analysis.SyntacticAnalysis
 {
-    public class SyntacticAnalyzerExpression : SyntacticAnalyzer
+    public class SyntacticAnalyzerExpression : ISyntacticAnalyzer
     {
-        UserInterface UserInterface;
+        IUserInterface UserInterface;
 
-        public SyntacticAnalyzerExpression(UserInterface userInterface)
+        public SyntacticAnalyzerExpression(IUserInterface userInterface)
         {
             this.UserInterface = userInterface;
         }
 
         public bool Analysis(List<Token> tokensExpression)
         {
-            List<Type> nextTokens = DistributorOfNextTokens.GetNextTokenTypes(new TokenBeginningOfLine()); //начало строки
+            List<Type> nextTokens = FactoryTokens.GetNextTokenTypes(new TokenBeginningOfLine()); //начало строки
             foreach (var token in tokensExpression)
             {
                 if (nextTokens.FirstOrDefault(x => x == token.GetType()) == null)
@@ -30,7 +30,7 @@ namespace ConsoleCalculator.Analysis.SyntacticAnalysis
                     return false;
                 }
 
-                nextTokens = DistributorOfNextTokens.GetNextTokenTypes(token);
+                nextTokens = FactoryTokens.GetNextTokenTypes(token);
             }
             if (nextTokens.FirstOrDefault(x => x == typeof(TokenOfEndOfLine)) == null)
             {

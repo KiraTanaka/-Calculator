@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ConsoleCalculator.Analysis.LexicalAnalysis;
-using ConsoleCalculator.DistributorsOperations;
+using ConsoleCalculator.Factories;
 using ConsoleCalculator.Analysis.SyntacticAnalysis;
 using ConsoleCalculator.UserInterfaces;
 using ConsoleCalculator.Evaluations;
@@ -19,10 +19,10 @@ namespace ConsoleCalculator
         {
             while (true)
             {
-                UserInterface userInterface = new UserInterfaceForExpression();
-                Evaluation evaluation = new EvaluationOfExpression(new DistributorOfOperationsOfExpression());
-                LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzerExpression(userInterface);
-                SyntacticAnalyzer syntacticAnalyzer = new SyntacticAnalyzerExpression(userInterface);
+                IUserInterface userInterface = new UserInterfaceForExpression();
+                Evaluation evaluation = new EvaluationOfExpression();
+                ILexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzerExpression(userInterface);
+                ISyntacticAnalyzer syntacticAnalyzer = new SyntacticAnalyzerExpression(userInterface);
                 List<Token> tokensExpression;
                 string expression = "";
 

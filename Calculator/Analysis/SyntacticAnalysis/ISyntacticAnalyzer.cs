@@ -7,7 +7,7 @@ using ConsoleCalculator.Tokens;
 
 namespace ConsoleCalculator.Analysis.SyntacticAnalysis
 {
-    public interface SyntacticAnalyzer
+    public interface ISyntacticAnalyzer
     {
         bool Analysis(List<Token> tokensExpression);
     }

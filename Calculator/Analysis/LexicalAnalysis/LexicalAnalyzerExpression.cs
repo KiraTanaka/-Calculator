@@ -9,12 +9,12 @@ using ConsoleCalculator.DistributorsTokens;
 
 namespace ConsoleCalculator.Analysis.LexicalAnalysis
 {
-    public class LexicalAnalyzerExpression : LexicalAnalyzer
+    public class LexicalAnalyzerExpression : ILexicalAnalyzer
     {
         private List<Token> TokensExpression = new List<Token>();
-        UserInterface UserInterface;
+        IUserInterface UserInterface;
 
-        public LexicalAnalyzerExpression(UserInterface userInterface)
+        public LexicalAnalyzerExpression(IUserInterface userInterface)
         {
             this.UserInterface = userInterface;
         }
@@ -35,7 +35,7 @@ namespace ConsoleCalculator.Analysis.LexicalAnalysis
                     number += symbol;
                     flagNegativeNumber = true;
                 }
-                else if ((token = DistributorOfNextTokens.GetToken(symbol.ToString())) != null)
+                else if ((token = FactoryTokens.GetToken(symbol.ToString())) != null)
                 {
                     if (number != "")
                     {

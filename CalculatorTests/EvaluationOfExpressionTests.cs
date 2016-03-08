@@ -3,7 +3,7 @@ using NUnit.Framework;
 using ConsoleCalculator;
 using System.Collections;
 using System.Collections.Generic;
-using ConsoleCalculator.DistributorsOperations;
+using ConsoleCalculator.Factories;
 using ConsoleCalculator.Evaluations;
 using ConsoleCalculator.Tokens;
 
@@ -15,7 +15,7 @@ namespace ConsoleCalculatorTests
         [Test]
         public void EvaluationTest()
         {
-            EvaluationOfExpression evaluation = new EvaluationOfExpression(new DistributorOfOperationsOfExpression());
+            EvaluationOfExpression evaluation = new EvaluationOfExpression();
             List<Token> tokensExpression = new List<Token>();
 
 
@@ -39,7 +39,7 @@ namespace ConsoleCalculatorTests
         [Test]
         public void CalculationOfSubexpressionTest()
         {
-            EvaluationOfExpression evaluation = new EvaluationOfExpression(new DistributorOfOperationsOfExpression());
+            EvaluationOfExpression evaluation = new EvaluationOfExpression();
             List<Token> tokensOfSubexpression = new List<Token>();
 
             tokensOfSubexpression.Add(new TokenNumber() { Value = "-2" });

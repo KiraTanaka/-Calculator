@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleCalculator.UserInterfaces
 {
-    public class UserInterfaceForExpression : UserInterface
+    public class UserInterfaceForExpression : IUserInterface
     {
         public string ReceivingData()
         {
