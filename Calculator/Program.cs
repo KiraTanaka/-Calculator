@@ -9,6 +9,7 @@ using ConsoleCalculator.Analysis.SyntacticAnalysis;
 using ConsoleCalculator.UserInterfaces;
 using ConsoleCalculator.Evaluations;
 using ConsoleCalculator.DistributorsTokens;
+using ConsoleCalculator.Tokens;
 
 namespace ConsoleCalculator
 {
@@ -16,23 +17,20 @@ namespace ConsoleCalculator
     {
         static void Main(string[] args)
         {
-            Tokens tokens = new Tokens() { TokenNumber = true, ListTokens = new List<string>() { "*", "/", "+", "-", "(", ")" } };
-
-            UserInterface userInterface = new UserInterfaceForExpression();
-            Evaluation evaluation = new EvaluationOfExpression(new DistributorOfOperationsOfExpression());
-            LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzerExpression(userInterface, tokens);
-            SyntacticAnalyzer syntacticAnalyzer = new SyntacticAnalyzerExpression(userInterface,
-                                                        new DistributorOfNextTokens(tokens));
-            List<string> tokensExpression = new List<string>(); 
-            string expression = "";
             while (true)
             {
+                UserInterface userInterface = new UserInterfaceForExpression();
+                Evaluation evaluation = new EvaluationOfExpression(new DistributorOfOperationsOfExpression());
+                LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzerExpression(userInterface);
+                SyntacticAnalyzer syntacticAnalyzer = new SyntacticAnalyzerExpression(userInterface);
+                List<Token> tokensExpression;
+                string expression = "";
+
                 expression = userInterface.ReceivingData();
                 tokensExpression = lexicalAnalyzer.Analysis(expression);
                 if (tokensExpression != null && syntacticAnalyzer.Analysis(tokensExpression))
                     userInterface.ResultOutput(evaluation.Calculation(tokensExpression).NumberToString());
-            }
-            
+            }       
         }
     }
 }

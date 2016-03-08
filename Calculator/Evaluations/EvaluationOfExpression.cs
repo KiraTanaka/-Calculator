@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ConsoleCalculator.DistributorsOperations;
+using ConsoleCalculator.Tokens;
 
 namespace ConsoleCalculator.Evaluations
 {
@@ -16,11 +17,11 @@ namespace ConsoleCalculator.Evaluations
             this.GeneratorOfOperations = component;
         }
 
-        public TypeNumber Calculation(List<string> tokensExpression)
+        public TypeNumber Calculation(List<Token> tokensExpression)
         {
             TypeNumber result = new TypeNumber();
             int indexLeftBracket, indexRightBracket, counter;
-            string resultCalculaion = "";
+            Token resultCalculaion = null;
 
             while (tokensExpression.Count != 1)
             {
@@ -29,13 +30,13 @@ namespace ConsoleCalculator.Evaluations
                 counter = 0;
 
                 //если есть скобки в выражении, то вычисляем сначала подвыражения в них
-                if (tokensExpression.FindIndex(x => x == "(" || x == ")") >= 0 )
+                if (tokensExpression.FindIndex(x => x.GetType() == typeof(TokenLeftBracket) || x.GetType() == typeof(TokenRightBracket)) >= 0 )
                 {
                     foreach (var element in tokensExpression)
                     {
-                        if (element == "(")
+                        if (element.GetType() == typeof(TokenLeftBracket))
                             indexLeftBracket = counter;
-                        else if (element == ")")
+                        else if (element.GetType() == typeof(TokenRightBracket))
                         {
                             indexRightBracket = counter;
                             if (indexRightBracket - indexLeftBracket > 2)
@@ -53,12 +54,12 @@ namespace ConsoleCalculator.Evaluations
                     resultCalculaion = CalculationOfSubexpression(tokensExpression);
             }
             
-            result.Number = TypeNumber.TryParse(resultCalculaion);
+            result.Number = TypeNumber.TryParse(resultCalculaion.Value);
 
             return result;
         }
 
-        public string CalculationOfSubexpression(List<string> tokensSubexpression)
+        public Token CalculationOfSubexpression(List<Token> tokensSubexpression)
         {
             Dictionary<string, int> prioritiesOperation = GeneratorOfOperations.GetPriorities();
             TypeNumber leftNumber = new TypeNumber(), rightNumber = new TypeNumber(), resultOfOperation = new TypeNumber();
@@ -68,14 +69,14 @@ namespace ConsoleCalculator.Evaluations
             {
                 for (int index = 0; index < tokensSubexpression.Count; index++)
                 {
-                    if (prioritiesOperation.FirstOrDefault(x => x.Key == tokensSubexpression[index]).Value == priority)
+                    if (prioritiesOperation.FirstOrDefault(x => x.Key == tokensSubexpression[index].Value).Value == priority)
                     {
-                        leftNumber.Number = TypeNumber.TryParse(tokensSubexpression[index - 1]);
-                        rightNumber.Number = TypeNumber.TryParse(tokensSubexpression[index + 1]);
-                        operation = GeneratorOfOperations.OperationSelection(tokensSubexpression[index]);
+                        leftNumber.Number = TypeNumber.TryParse(tokensSubexpression[index - 1].Value);
+                        rightNumber.Number = TypeNumber.TryParse(tokensSubexpression[index + 1].Value);
+                        operation = GeneratorOfOperations.OperationSelection(tokensSubexpression[index].Value);
                         resultOfOperation = operation.Execute(leftNumber, rightNumber);
                         tokensSubexpression.RemoveRange(index, 2);
-                        tokensSubexpression[index - 1] = resultOfOperation.NumberToString();
+                        tokensSubexpression[index - 1].Value = resultOfOperation.NumberToString();
                     }
                 }
             }

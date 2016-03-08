@@ -5,6 +5,7 @@ using ConsoleCalculator.Analysis.LexicalAnalysis;
 using ConsoleCalculator.UserInterfaces;
 using System.Collections;
 using System.Collections.Generic;
+using ConsoleCalculator.Tokens;
 
 namespace ConsoleCalculatorTests
 {
@@ -16,22 +17,22 @@ namespace ConsoleCalculatorTests
         {
             LexicalAnalyzerExpression analyzer = new LexicalAnalyzerExpression(new UserInterfaceForExpression());
             string expression = "(-2)*(3+5.8)+(7-3)";
-            List<string> tokensExpression = new List<string>();
-            List<string> result = new List<string>();
+            List<Token> tokensExpression = new List<Token>();
+            List<Token> result = new List<Token>();
 
-            tokensExpression.Add("-2");
-            tokensExpression.Add("*");
-            tokensExpression.Add("(");
-            tokensExpression.Add("3");
-            tokensExpression.Add("+");
-            tokensExpression.Add("5.8");
-            tokensExpression.Add(")");
-            tokensExpression.Add("+");
-            tokensExpression.Add("(");
-            tokensExpression.Add("7");
-            tokensExpression.Add("-");
-            tokensExpression.Add("3");
-            tokensExpression.Add(")");
+            tokensExpression.Add(new TokenNumber() { Value = "-2" });
+            tokensExpression.Add(new TokenOperations() { Value = "*" });
+            tokensExpression.Add(new TokenLeftBracket() { Value = "(" });
+            tokensExpression.Add(new TokenNumber() { Value = "3" });
+            tokensExpression.Add(new TokenOperations() { Value = "+" });
+            tokensExpression.Add(new TokenNumber() { Value = "5.8" });
+            tokensExpression.Add(new TokenRightBracket() { Value = ")" });
+            tokensExpression.Add(new TokenOperations() { Value = "+" });
+            tokensExpression.Add(new TokenLeftBracket() { Value = "(" });
+            tokensExpression.Add(new TokenNumber() { Value = "7" });
+            tokensExpression.Add(new TokenOperations() { Value = "-" });
+            tokensExpression.Add(new TokenNumber() { Value = "3" });
+            tokensExpression.Add(new TokenRightBracket() { Value = ")" });
 
             result = analyzer.Analysis(expression);
 
@@ -39,7 +40,8 @@ namespace ConsoleCalculatorTests
 
             for (int i = 0; i < tokensExpression.Count; i++)
             {
-                Assert.AreEqual(tokensExpression[i], result[i]);
+                Assert.AreEqual(tokensExpression[i].GetType(), result[i].GetType());
+                Assert.AreEqual(tokensExpression[i].Value, result[i].Value);
             }
         }
     }

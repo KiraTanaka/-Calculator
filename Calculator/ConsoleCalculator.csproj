@@ -68,7 +68,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Analysis\SyntacticAnalysis\SyntacticAnalyzer.cs" />
     <Compile Include="Analysis\SyntacticAnalysis\SyntacticAnalyzerExpression.cs" />
-    <Compile Include="Tokens.cs" />
+    <Compile Include="Tokens\Token.cs" />
+    <Compile Include="Tokens\TokenBeginningOfLine.cs" />
+    <Compile Include="Tokens\TokenEndingOfLine.cs" />
+    <Compile Include="Tokens\TokenLeftBracket.cs" />
+    <Compile Include="Tokens\TokenNumber.cs" />
+    <Compile Include="Tokens\TokenOperations.cs" />
+    <Compile Include="Tokens\TokenRightBracket.cs" />
     <Compile Include="TypeNumber.cs" />
     <Compile Include="UserInterfaces\UserInterface.cs" />
     <Compile Include="UserInterfaces\UserInterfaceForExpression.cs" />

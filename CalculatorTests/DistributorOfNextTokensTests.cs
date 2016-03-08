@@ -3,87 +3,91 @@ using NUnit.Framework;
 using ConsoleCalculator;
 using ConsoleCalculator.DistributorsTokens;
 using System.Collections.Generic;
+using ConsoleCalculator.Tokens;
 
 namespace ConsoleCalculatorTests
 {
     public class DistributorOfNextTokensTests
     {
-        Tokens Tokens = new Tokens() { TokenNumber = true, ListTokens = new List<string>() { "*", "/", "+", "-", "(", ")" } };
-
         [Test]
-        public void GetNextTokenWithOperationTest()
+        public void GetNextTokenTypesWithOperationTest()
         {
-            DistributorOfNextTokens distributor = new DistributorOfNextTokens(Tokens);
-            Tokens tokens = new Tokens() { TokenNumber = true };
-            tokens.ListTokens = new List<string>() { "(" };
-            Tokens result = distributor.GetNextToken("+");
+            List<Type> nextTokenTypes = new List<Type>();
+            nextTokenTypes.Add(typeof(TokenLeftBracket));
+            nextTokenTypes.Add(typeof(TokenNumber));
 
-            Assert.IsTrue(result.TokenNumber);
-            Assert.AreEqual(tokens.ListTokens.Count, result.ListTokens.Count);
-            Assert.AreEqual(tokens.ListTokens[0], result.ListTokens[0]);
-        }
+            List<Type> result = DistributorOfNextTokens.GetNextTokenTypes(new TokenOperations());
 
-        [Test]
-        public void GetNextTokenWithNumberTest()
-        {
-            DistributorOfNextTokens distributor = new DistributorOfNextTokens(Tokens);
-            Tokens tokens = new Tokens() { TokenNumber = false };
-            tokens.ListTokens = new List<string>() { "*", "/", "+", "-", ")", "$" };
-            Tokens result = distributor.GetNextToken("8990.756");
-
-            Assert.IsFalse(result.TokenNumber);
-            Assert.AreEqual(tokens.ListTokens.Count, result.ListTokens.Count);
-            for (int index = 0; index < tokens.ListTokens.Count; index++)
+            Assert.AreEqual(nextTokenTypes.Count, result.Count);
+            for (int index = 0; index < nextTokenTypes.Count; index++)
             {
-                Assert.AreEqual(tokens.ListTokens[index], result.ListTokens[index]);
+                Assert.AreEqual(nextTokenTypes[0], result[0]);
             }
         }
 
         [Test]
-        public void GetNextTokenWithLeftBracketsTest()
+        public void GetNextTokenTypesWithNumberTest()
         {
-            DistributorOfNextTokens distributor = new DistributorOfNextTokens(Tokens);
-            Tokens tokens = new Tokens() { TokenNumber = true };
-            tokens.ListTokens = new List<string>() { "-", "(" };
-            Tokens result = distributor.GetNextToken("(");
+            List<Type> nextTokenTypes = new List<Type>();
+            nextTokenTypes.Add(typeof(TokenOperations));
+            nextTokenTypes.Add(typeof(TokenRightBracket));
+            nextTokenTypes.Add(typeof(TokenOfEndOfLine));
 
-            Assert.IsTrue(result.TokenNumber);
-            Assert.AreEqual(tokens.ListTokens.Count, result.ListTokens.Count);
-            for (int index = 0; index < tokens.ListTokens.Count; index++)
+            List<Type> result = DistributorOfNextTokens.GetNextTokenTypes(new TokenNumber());
+
+            Assert.AreEqual(nextTokenTypes.Count, result.Count);
+            for (int index = 0; index < nextTokenTypes.Count; index++)
             {
-                Assert.AreEqual(tokens.ListTokens[index], result.ListTokens[index]);
+                Assert.AreEqual(nextTokenTypes[index], result[index]);
             }
         }
 
         [Test]
-        public void GetNextTokenWithRightBracketsTest()
+        public void GetNextTokenTypesWithLeftBracketsTest()
         {
-            DistributorOfNextTokens distributor = new DistributorOfNextTokens(Tokens);
-            Tokens tokens = new Tokens() { TokenNumber = false };
-            tokens.ListTokens = new List<string>() { "*", "/", "+", "-", ")", "$" };
-            Tokens result = distributor.GetNextToken(")");
+            List<Type> nextTokenTypes = new List<Type>();
+            nextTokenTypes.Add(typeof(TokenLeftBracket));
+            nextTokenTypes.Add(typeof(TokenNumber));
 
-            Assert.IsFalse(result.TokenNumber);
-            Assert.AreEqual(tokens.ListTokens.Count, result.ListTokens.Count);
-            for (int index = 0; index < tokens.ListTokens.Count; index++)
+            List<Type> result = DistributorOfNextTokens.GetNextTokenTypes(new TokenLeftBracket());
+
+            Assert.AreEqual(nextTokenTypes.Count, result.Count);
+            for (int index = 0; index < nextTokenTypes.Count; index++)
             {
-                Assert.AreEqual(tokens.ListTokens[index], result.ListTokens[index]);
+                Assert.AreEqual(nextTokenTypes[index], result[index]);
             }
         }
 
         [Test]
-        public void GetNextTokenWithBeginningOfLineTest()
+        public void GetNextTokenTypesWithRightBracketsTest()
         {
-            DistributorOfNextTokens distributor = new DistributorOfNextTokens(Tokens);
-            Tokens tokens = new Tokens() { TokenNumber = true };
-            tokens.ListTokens = new List<string>() { "(" };
-            Tokens result = distributor.GetNextToken("^");
+            List<Type> nextTokenTypes = new List<Type>();
+            nextTokenTypes.Add(typeof(TokenOperations));
+            nextTokenTypes.Add(typeof(TokenRightBracket));
+            nextTokenTypes.Add(typeof(TokenOfEndOfLine));
 
-            Assert.IsTrue(result.TokenNumber);
-            Assert.AreEqual(tokens.ListTokens.Count, result.ListTokens.Count);
-            for (int index = 0; index < tokens.ListTokens.Count; index++)
+            List<Type> result = DistributorOfNextTokens.GetNextTokenTypes(new TokenRightBracket());
+
+            Assert.AreEqual(nextTokenTypes.Count, result.Count);
+            for (int index = 0; index < nextTokenTypes.Count; index++)
             {
-                Assert.AreEqual(tokens.ListTokens[index], result.ListTokens[index]);
+                Assert.AreEqual(nextTokenTypes[index], result[index]);
+            }
+        }
+
+        [Test]
+        public void GetNextTokenTypesWithBeginningOfLineTest()
+        {
+            List<Type> nextTokenTypes = new List<Type>();
+            nextTokenTypes.Add(typeof(TokenNumber));
+            nextTokenTypes.Add(typeof(TokenLeftBracket));
+
+            List<Type> result = DistributorOfNextTokens.GetNextTokenTypes(new TokenBeginningOfLine());
+
+            Assert.AreEqual(nextTokenTypes.Count, result.Count);
+            for (int index = 0; index < nextTokenTypes.Count; index++)
+            {
+                Assert.AreEqual(nextTokenTypes[index], result[index]);
             }
         }
     }

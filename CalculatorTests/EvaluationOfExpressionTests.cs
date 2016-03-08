@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using ConsoleCalculator.DistributorsOperations;
 using ConsoleCalculator.Evaluations;
+using ConsoleCalculator.Tokens;
 
 namespace ConsoleCalculatorTests
 {
@@ -15,22 +16,22 @@ namespace ConsoleCalculatorTests
         public void EvaluationTest()
         {
             EvaluationOfExpression evaluation = new EvaluationOfExpression(new DistributorOfOperationsOfExpression());
-            List<string> tokensExpression = new List<string>();
+            List<Token> tokensExpression = new List<Token>();
 
 
-            tokensExpression.Add("-2");
-            tokensExpression.Add("*");
-            tokensExpression.Add("(");
-            tokensExpression.Add("3");
-            tokensExpression.Add("+");
-            tokensExpression.Add("5.8");
-            tokensExpression.Add(")");
-            tokensExpression.Add("+");
-            tokensExpression.Add("(");
-            tokensExpression.Add("7");
-            tokensExpression.Add("-");
-            tokensExpression.Add("3");
-            tokensExpression.Add(")");
+            tokensExpression.Add(new TokenNumber() { Value = "-2" });
+            tokensExpression.Add(new TokenOperations() { Value = "*" });
+            tokensExpression.Add(new TokenLeftBracket() { Value = "(" });
+            tokensExpression.Add(new TokenNumber() { Value = "3" });
+            tokensExpression.Add(new TokenOperations() { Value = "+" });
+            tokensExpression.Add(new TokenNumber() { Value = "5.8" });
+            tokensExpression.Add(new TokenRightBracket() { Value = ")" });
+            tokensExpression.Add(new TokenOperations() { Value = "+" });
+            tokensExpression.Add(new TokenLeftBracket() { Value = "(" });
+            tokensExpression.Add(new TokenNumber() { Value = "7" });
+            tokensExpression.Add(new TokenOperations() { Value = "-" });
+            tokensExpression.Add(new TokenNumber() { Value = "3" });
+            tokensExpression.Add(new TokenRightBracket() { Value = ")" });
 
             Assert.AreEqual(-13.6f, evaluation.Calculation(tokensExpression).Number);
         }
@@ -39,17 +40,17 @@ namespace ConsoleCalculatorTests
         public void CalculationOfSubexpressionTest()
         {
             EvaluationOfExpression evaluation = new EvaluationOfExpression(new DistributorOfOperationsOfExpression());
-            List<string> tokensOfSubexpression = new List<string>();
+            List<Token> tokensOfSubexpression = new List<Token>();
 
-            tokensOfSubexpression.Add("-2");
-            tokensOfSubexpression.Add("*");
-            tokensOfSubexpression.Add("3");
-            tokensOfSubexpression.Add("+");
-            tokensOfSubexpression.Add("-5.8");
-            tokensOfSubexpression.Add("/");
-            tokensOfSubexpression.Add("2");
+            tokensOfSubexpression.Add(new TokenNumber() { Value = "-2" });
+            tokensOfSubexpression.Add(new TokenOperations() { Value = "*" });
+            tokensOfSubexpression.Add(new TokenNumber() { Value = "3" });
+            tokensOfSubexpression.Add(new TokenOperations() { Value = "+" });
+            tokensOfSubexpression.Add(new TokenNumber() { Value = "-5.8" });
+            tokensOfSubexpression.Add(new TokenOperations() { Value = "/" });
+            tokensOfSubexpression.Add(new TokenNumber() { Value = "2" });
 
-            Assert.AreEqual("-8.9", evaluation.CalculationOfSubexpression(tokensOfSubexpression));
+            Assert.AreEqual("-8.9", evaluation.CalculationOfSubexpression(tokensOfSubexpression).Value);
         }
     }
 }

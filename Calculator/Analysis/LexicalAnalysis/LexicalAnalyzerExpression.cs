@@ -4,23 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ConsoleCalculator.UserInterfaces;
+using ConsoleCalculator.Tokens;
+using ConsoleCalculator.DistributorsTokens;
 
 namespace ConsoleCalculator.Analysis.LexicalAnalysis
 {
     public class LexicalAnalyzerExpression : LexicalAnalyzer
     {
-        private List<string> TokensExpression = new List<string>();
+        private List<Token> TokensExpression = new List<Token>();
         UserInterface UserInterface;
-        Tokens Tokens;
 
-        public LexicalAnalyzerExpression(UserInterface userInterface, Tokens tokens)
+        public LexicalAnalyzerExpression(UserInterface userInterface)
         {
             this.UserInterface = userInterface;
-            this.Tokens = tokens;
         }
 
-        public List<string> Analysis(string expression)
+        public List<Token> Analysis(string expression)
         {            
+            Token token;
             string number = "";
             bool flagNegativeNumber = false;
 
@@ -28,21 +29,21 @@ namespace ConsoleCalculator.Analysis.LexicalAnalysis
             {
                 if (Char.IsNumber(symbol) || symbol == '.')
                     number += symbol;
-                else if (symbol == '-' && TokensExpression.Count() != 0 && TokensExpression.Last() == "(" && number == "")
+                else if (symbol == '-' && TokensExpression.Count() != 0 && TokensExpression.Last().Value == "(" && number == "")
                 {
                     TokensExpression.RemoveAt(TokensExpression.Count - 1);
                     number += symbol;
                     flagNegativeNumber = true;
                 }
-                else if (Tokens.ListTokens.Contains(symbol.ToString()))
+                else if ((token = DistributorOfNextTokens.GetToken(symbol.ToString())) != null)
                 {
                     if (number != "")
                     {
-                        TokensExpression.Add(number);
+                        TokensExpression.Add(new TokenNumber() { Value = number});
                         number = "";
                     }
                     if (!flagNegativeNumber)
-                        TokensExpression.Add(symbol.ToString());
+                        TokensExpression.Add(token);
                     else
                         flagNegativeNumber = false;
                 }
@@ -53,7 +54,7 @@ namespace ConsoleCalculator.Analysis.LexicalAnalysis
                 }
             }
             if (number != "")
-                TokensExpression.Add(number);
+                TokensExpression.Add(new TokenNumber() { Value = number});
 
             return TokensExpression;
         }
