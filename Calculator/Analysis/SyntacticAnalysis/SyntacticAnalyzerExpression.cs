@@ -21,7 +21,7 @@ namespace ConsoleCalculator.Analysis.SyntacticAnalysis
 
         public bool Analysis(List<Token> tokensExpression)
         {
-            List<Type> nextTokens = FactoryTokens.GetNextTokenTypes(new TokenBeginningOfLine()); //начало строки
+            List<Type> nextTokens = FactoryOfTokens.GetNextTokenTypes(new TokenBeginningOfLine()); //начало строки
             foreach (var token in tokensExpression)
             {
                 if (nextTokens.FirstOrDefault(x => x == token.GetType()) == null)
@@ -30,7 +30,7 @@ namespace ConsoleCalculator.Analysis.SyntacticAnalysis
                     return false;
                 }
 
-                nextTokens = FactoryTokens.GetNextTokenTypes(token);
+                nextTokens = FactoryOfTokens.GetNextTokenTypes(token);
             }
             if (nextTokens.FirstOrDefault(x => x == typeof(TokenOfEndOfLine)) == null)
             {

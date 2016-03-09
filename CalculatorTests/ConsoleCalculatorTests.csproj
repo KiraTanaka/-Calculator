@@ -51,8 +51,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="FactoryTokensTests.cs" />
-    <Compile Include="FactoryOperationsTests.cs" />
+    <Compile Include="FactoryOfTokensTests.cs" />
+    <Compile Include="FactoryOfOperationsTests.cs" />
     <Compile Include="EvaluationOfExpressionTests.cs" />
     <Compile Include="LexicalAnalyzerExpressionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

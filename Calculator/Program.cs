@@ -20,7 +20,7 @@ namespace ConsoleCalculator
             while (true)
             {
                 IUserInterface userInterface = new UserInterfaceForExpression();
-                Evaluation evaluation = new EvaluationOfExpression();
+                IEvaluation evaluation = new EvaluationOfExpression();
                 ILexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzerExpression(userInterface);
                 ISyntacticAnalyzer syntacticAnalyzer = new SyntacticAnalyzerExpression(userInterface);
                 List<Token> tokensExpression;

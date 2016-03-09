@@ -8,7 +8,7 @@ using ConsoleCalculator.Tokens;
 
 namespace ConsoleCalculator.Evaluations
 {
-    public class EvaluationOfExpression : Evaluation
+    public class EvaluationOfExpression : IEvaluation
     {
         public TypeNumber Calculation(List<Token> tokensExpression)
         {
@@ -54,7 +54,7 @@ namespace ConsoleCalculator.Evaluations
 
         public Token CalculationOfSubexpression(List<Token> tokensSubexpression)
         {
-            Dictionary<string, int> prioritiesOperation = FactoryOperations.GetPriorities();
+            Dictionary<string, int> prioritiesOperation = FactoryOfOperations.GetPriorities();
             TypeNumber leftNumber = new TypeNumber(), rightNumber = new TypeNumber(), resultOfOperation = new TypeNumber();
             Operation operation = null;
 
@@ -66,7 +66,7 @@ namespace ConsoleCalculator.Evaluations
                     {
                         leftNumber.Number = TypeNumber.TryParse(tokensSubexpression[index - 1].Value);
                         rightNumber.Number = TypeNumber.TryParse(tokensSubexpression[index + 1].Value);
-                        operation = FactoryOperations.OperationSelection(tokensSubexpression[index].Value);
+                        operation = FactoryOfOperations.OperationSelection(tokensSubexpression[index].Value);
                         resultOfOperation = operation.Execute(leftNumber, rightNumber);
                         tokensSubexpression.RemoveRange(index, 2);
                         tokensSubexpression[index - 1].Value = resultOfOperation.NumberToString();

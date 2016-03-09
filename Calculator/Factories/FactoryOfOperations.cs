@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleCalculator.Factories
 {
-    public class FactoryOperations
+    public class FactoryOfOperations
     {
         static Dictionary<string, int> Priorities = new Dictionary<string, int>(){ {"*", 1},
                                                                                     {"/", 2}, 

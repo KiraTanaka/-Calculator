@@ -35,7 +35,7 @@ namespace ConsoleCalculator.Analysis.LexicalAnalysis
                     number += symbol;
                     flagNegativeNumber = true;
                 }
-                else if ((token = FactoryTokens.GetToken(symbol.ToString())) != null)
+                else if ((token = FactoryOfTokens.GetToken(symbol.ToString())) != null)
                 {
                     if (number != "")
                     {

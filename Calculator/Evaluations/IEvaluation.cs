@@ -7,7 +7,7 @@ using ConsoleCalculator.Tokens;
 
 namespace ConsoleCalculator.Evaluations
 {
-    public interface Evaluation
+    public interface IEvaluation
     {
         TypeNumber Calculation(List<Token> tokensExpression);
     }

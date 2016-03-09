@@ -7,7 +7,7 @@ using ConsoleCalculator.Tokens;
 
 namespace ConsoleCalculator.DistributorsTokens
 {
-    public class FactoryTokens
+    public class FactoryOfTokens
     {
         private static Dictionary<string, Token> Tokens = new Dictionary<string, Token>(){  {"*", new TokenOperations()},
                                                                                             {"/", new TokenOperations()}, 

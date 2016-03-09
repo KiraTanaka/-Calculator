@@ -56,10 +56,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Evaluations\Evaluation.cs" />
-    <Compile Include="Factories\FactoryTokens.cs" />
+    <Compile Include="Evaluations\IEvaluation.cs" />
+    <Compile Include="Factories\FactoryOfTokens.cs" />
     <Compile Include="Evaluations\EvaluationOfExpression.cs" />
-    <Compile Include="Factories\FactoryOperations.cs" />
+    <Compile Include="Factories\FactoryOfOperations.cs" />
     <Compile Include="Analysis\LexicalAnalysis\ILexicalAnalyzer.cs" />
     <Compile Include="Analysis\LexicalAnalysis\LexicalAnalyzerExpression.cs" />
     <Compile Include="Operations\Operation.cs" />

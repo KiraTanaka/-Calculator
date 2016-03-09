@@ -4,10 +4,11 @@ using ConsoleCalculator;
 using ConsoleCalculator.DistributorsTokens;
 using System.Collections.Generic;
 using ConsoleCalculator.Tokens;
+using ConsoleCalculator.Factories;
 
 namespace ConsoleCalculatorTests
 {
-    public class FactoryTokensTests
+    public class FactoryOfTokensTests
     {
         [Test]
         public void GetNextTokenTypesWithOperationTest()
@@ -16,7 +17,7 @@ namespace ConsoleCalculatorTests
             nextTokenTypes.Add(typeof(TokenLeftBracket));
             nextTokenTypes.Add(typeof(TokenNumber));
 
-            List<Type> result = FactoryTokens.GetNextTokenTypes(new TokenOperations());
+            List<Type> result = FactoryOfTokens.GetNextTokenTypes(new TokenOperations());
 
             Assert.AreEqual(nextTokenTypes.Count, result.Count);
             for (int index = 0; index < nextTokenTypes.Count; index++)
@@ -33,7 +34,7 @@ namespace ConsoleCalculatorTests
             nextTokenTypes.Add(typeof(TokenRightBracket));
             nextTokenTypes.Add(typeof(TokenOfEndOfLine));
 
-            List<Type> result = FactoryTokens.GetNextTokenTypes(new TokenNumber());
+            List<Type> result = FactoryOfTokens.GetNextTokenTypes(new TokenNumber());
 
             Assert.AreEqual(nextTokenTypes.Count, result.Count);
             for (int index = 0; index < nextTokenTypes.Count; index++)
@@ -49,7 +50,7 @@ namespace ConsoleCalculatorTests
             nextTokenTypes.Add(typeof(TokenLeftBracket));
             nextTokenTypes.Add(typeof(TokenNumber));
 
-            List<Type> result = FactoryTokens.GetNextTokenTypes(new TokenLeftBracket());
+            List<Type> result = FactoryOfTokens.GetNextTokenTypes(new TokenLeftBracket());
 
             Assert.AreEqual(nextTokenTypes.Count, result.Count);
             for (int index = 0; index < nextTokenTypes.Count; index++)
@@ -66,7 +67,7 @@ namespace ConsoleCalculatorTests
             nextTokenTypes.Add(typeof(TokenRightBracket));
             nextTokenTypes.Add(typeof(TokenOfEndOfLine));
 
-            List<Type> result = FactoryTokens.GetNextTokenTypes(new TokenRightBracket());
+            List<Type> result = FactoryOfTokens.GetNextTokenTypes(new TokenRightBracket());
 
             Assert.AreEqual(nextTokenTypes.Count, result.Count);
             for (int index = 0; index < nextTokenTypes.Count; index++)
@@ -82,7 +83,7 @@ namespace ConsoleCalculatorTests
             nextTokenTypes.Add(typeof(TokenNumber));
             nextTokenTypes.Add(typeof(TokenLeftBracket));
 
-            List<Type> result = FactoryTokens.GetNextTokenTypes(new TokenBeginningOfLine());
+            List<Type> result = FactoryOfTokens.GetNextTokenTypes(new TokenBeginningOfLine());
 
             Assert.AreEqual(nextTokenTypes.Count, result.Count);
             for (int index = 0; index < nextTokenTypes.Count; index++)
